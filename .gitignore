@@ -3,3 +3,21 @@
 ################################################################################
 
 /.vs/FileHistory/v16
+/FileHistory.App/bin/Debug
+/FileHistory.App/obj/Debug
+/FileHistory.App/packages/MSTest.TestFramework.2.1.1
+/FileHistory.App/packages/MSTest.TestAdapter.2.1.1
+/FileHistory.App/packages/CommandLineParser.2.8.0
+/FileHistory.Core/obj/Debug
+/FileHistory.Core/bin/Debug
+/FileHistory.Test/FileHistory.Test/obj/Debug
+/FileHistory.Test/FileHistory.Test/bin/Debug
+/packages/System.Threading.Tasks.Extensions.4.5.4
+/packages/System.Runtime.CompilerServices.Unsafe.4.5.3
+/packages/MSTest.TestFramework.2.1.2
+/packages/MSTest.TestFramework.2.1.1
+/packages/MSTest.TestAdapter.2.1.2
+/packages/MSTest.TestAdapter.2.1.1
+/packages/Moq.4.16.0
+/packages/CommandLineParser.2.8.0
+/packages/Castle.Core.4.4.0
