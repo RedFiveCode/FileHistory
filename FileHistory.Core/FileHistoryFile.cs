@@ -49,6 +49,14 @@ namespace FileHistory.Core
         {
             get { return Name + Ext; }
         }
+
+        /// <summary>
+        /// Gets the size, in bytes, of the current file.
+        /// </summary>
+        public long Length
+        {
+            get { return Info.Length; }
+        }
     }
 
 }
