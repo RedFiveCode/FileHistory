@@ -49,7 +49,7 @@ namespace FileHistory.Core
 				foreach (var m in g.Items.OrderByDescending(x => x.Info.CreationTime))
 				{
 					// output similar to dir
-					Console.WriteLine($" {m.Info.CreationTime} {m.Info.Length,8} {m.Info.FullName}");
+					Console.WriteLine($" {m.Info.CreationTime} {m.Length,8} {m.Info.FullName}");
 				}
 
 				Console.WriteLine();
@@ -84,7 +84,7 @@ namespace FileHistory.Core
 
 			if (minimumFileSize > 0) // optionally remove files smaller than minimum file size
 			{
-				details.RemoveAll(f => f.Info.Length < minimumFileSize);
+				details.RemoveAll(f => f.Length < minimumFileSize);
 			}
 
 			var grouping = details.GroupBy(fd => fd.FullName)

@@ -39,14 +39,14 @@ namespace FileHistory.App
 
 			if (options.Preview)
             {
-				ColorConsole.WriteLine($"Keep {keepList.Count:n0} file(s); Size {keepList.Sum(f => f.Info.Length):n0} bytes", ConsoleColor.Green);
+				ColorConsole.WriteLine($"Keep {keepList.Count:n0} file(s); Size {keepList.Sum(f => f.Length):n0} bytes", ConsoleColor.Green);
 				foreach (var f in keepList)
                 {
 					ColorConsole.WriteLine($"  Keep   {f.Info.FullName}", ConsoleColor.Green);
 				}
 
 				Console.WriteLine();
-				ColorConsole.WriteLine($"Delete {deleteList.Count:n0} file(s); Size {deleteList.Sum(f => f.Info.Length):n0} bytes", ConsoleColor.Magenta);
+				ColorConsole.WriteLine($"Delete {deleteList.Count:n0} file(s); Size {deleteList.Sum(f => f.Length):n0} bytes", ConsoleColor.Magenta);
 				foreach (var f in deleteList)
 				{
 					ColorConsole.WriteLine($"  Delete {f.Info.FullName}", ConsoleColor.Magenta);

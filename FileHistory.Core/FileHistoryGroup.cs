@@ -37,7 +37,7 @@ namespace FileHistory.Core
 
         public long FileSize
         {
-            get { return Files.Sum(i => i.Info.Length); }
+            get { return Files.Sum(i => i.Length); }
         }
 
         public FileHistoryGroup(string fullname, IEnumerable<FileHistoryFile> files)
