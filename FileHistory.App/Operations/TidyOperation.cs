@@ -42,14 +42,14 @@ namespace FileHistory.App
 				ColorConsole.WriteLine($"Keep {keepList.Count:n0} file(s); Size {keepList.Sum(f => f.Length):n0} bytes", ConsoleColor.Green);
 				foreach (var f in keepList)
                 {
-					ColorConsole.WriteLine($"  Keep   {f.Info.FullName}", ConsoleColor.Green);
+					ColorConsole.WriteLine($"  Keep   {f.FullPath}", ConsoleColor.Green);
 				}
 
 				Console.WriteLine();
 				ColorConsole.WriteLine($"Delete {deleteList.Count:n0} file(s); Size {deleteList.Sum(f => f.Length):n0} bytes", ConsoleColor.Magenta);
 				foreach (var f in deleteList)
 				{
-					ColorConsole.WriteLine($"  Delete {f.Info.FullName}", ConsoleColor.Magenta);
+					ColorConsole.WriteLine($"  Delete {f.FullPath}", ConsoleColor.Magenta);
 				}
 			}
             else
@@ -58,7 +58,7 @@ namespace FileHistory.App
 				{
 					if (options.Verbose)
 					{
-						ColorConsole.WriteLine($"  Delete {f.Info.FullName}...", ConsoleColor.Magenta);
+						ColorConsole.WriteLine($"  Delete {f.FullPath}...", ConsoleColor.Magenta);
 					}
 
 					//File.Delete(f.Info.FullName);
