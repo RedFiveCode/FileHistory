@@ -81,7 +81,7 @@ namespace FileHistory.App
 				else
 				{
 					// files are ordered by time, keep the newest (first/Skip(1)) and delete the others
-					var files = g.Files.OrderByDescending(x => x.Info.CreationTime);
+					var files = g.Files.OrderByDescending(x => x.CreationTime);
 
 					keepList.AddRange(files.Take(recentGenerationsToKeep));
 
