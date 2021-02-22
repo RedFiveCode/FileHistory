@@ -8,54 +8,6 @@ namespace FileHistory.Core
 {
     public class FileHistory
     {
-		public void ShowFolderOld(string folder)
-		{
-			var files = GetFolderDetails(folder);
-
-			if (files.Count == 0)
-			{
-				Console.WriteLine($"No matching files in {folder}");
-				return;
-			}
-
-			var grouping = files.GroupBy(fd => fd.Name)
-					.Select(fd => new { RootName = fd.Key, Items = fd.ToList() })
-					;
-
-			foreach (var g in grouping.OrderBy(x => x.RootName))
-			{
-				Console.WriteLine($"{g.RootName} ({g.Items.Count()} matches) :");
-
-				// ignore if only one file, cannot have duplicates
-				//if (g.Items.Count == 1)
-				//{
-				//	var m = g.Items.First();
-				//	Console.WriteLine($" {m.Info.CreationTime} {m.Info.Length,8} {m.Info.FullName}");
-
-				//	continue;
-				//}
-
-				// only interested in big files
-				//if (g.Items.First().Info.Length < (1 * 1000 * 1000))
-				//{
-				//	continue;
-				//}
-
-				//Console.WriteLine($"{g.RootName} ({g.Items.Count()} matches) :");
-
-				// TODO check duplicate names for (same name, same size)
-
-				// files are ordered by time, most recent first
-				foreach (var m in g.Items.OrderByDescending(x => x.Info.CreationTime))
-				{
-					// output similar to dir
-					Console.WriteLine($" {m.CreationTime} {m.Length,8} {m.Info.FullName}");
-				}
-
-				Console.WriteLine();
-			}
-		}
-
 		public List<FileHistoryGroup> GetFolderGroupDetails(string path, bool recurseSubFolders, string wildcardFilter, long minimumFileSize)
 		{
 			var wildcard = (String.IsNullOrEmpty(wildcardFilter) ? "*.*" : wildcardFilter);
