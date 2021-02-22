@@ -16,11 +16,11 @@ namespace FileHistory.Test
         }
 
         [TestMethod]
-        public void FullName_Returns_Concatanted_Values()
+        public void FullName_Returns_Concatenated_Values()
         {
             var target = new FileHistoryFile(@"\\server\somepath", "filename", ".ext", "2016_07_07 18_56_08 UTC");
 
-            Assert.AreEqual("filename.ext", target.FullName);
+            Assert.AreEqual("filename.ext", target.FileName);
         }
 
         [TestMethod]
