@@ -39,7 +39,7 @@ namespace FileHistory.Core
 				details.RemoveAll(f => f.Length < minimumFileSize);
 			}
 
-			var grouping = details.GroupBy(fd => fd.FullName)
+			var grouping = details.GroupBy(fd => fd.FileName)
 								  .Select(fd => new { RootName = fd.Key, Items = fd.ToList() })
 								  .OrderBy(g => g.RootName)
 								  .Select(g => new FileHistoryGroup(g.RootName, g.Items))

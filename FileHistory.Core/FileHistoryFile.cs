@@ -46,7 +46,7 @@ namespace FileHistory.Core
         /// <summary>
         /// Filename including extension
         /// </summary>
-        public string FullName
+        public string FileName
         {
             get { return Name + Ext; }
         }
