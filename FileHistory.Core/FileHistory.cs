@@ -49,7 +49,7 @@ namespace FileHistory.Core
 				foreach (var m in g.Items.OrderByDescending(x => x.Info.CreationTime))
 				{
 					// output similar to dir
-					Console.WriteLine($" {m.Info.CreationTime} {m.Length,8} {m.Info.FullName}");
+					Console.WriteLine($" {m.CreationTime} {m.Length,8} {m.Info.FullName}");
 				}
 
 				Console.WriteLine();

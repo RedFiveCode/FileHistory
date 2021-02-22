@@ -34,10 +34,10 @@ namespace FileHistory.App
 				ColorConsole.WriteLine($"{g.Fullname} ({g.Files.Count} matches) :", ConsoleColor.Yellow);
 
 				// files are ordered by time, most recent first
-				foreach (var f in g.Files.OrderByDescending(x => x.Info.CreationTime))
+				foreach (var f in g.Files.OrderByDescending(x => x.CreationTime))
 				{
 					// output similar to dir
-					ColorConsole.Write($" {f.Info.CreationTime} {f.Info.Length,15:n0}", ConsoleColor.Cyan);
+					ColorConsole.Write($" {f.CreationTime} {f.Length,15:n0}", ConsoleColor.Cyan);
 					ColorConsole.Write($" {f.RawName}", ConsoleColor.Yellow);
 					ColorConsole.WriteLine($" {f.Info.FullName}", ConsoleColor.Green);
 				}

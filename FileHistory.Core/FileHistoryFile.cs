@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.IO;
 
 namespace FileHistory.Core
@@ -51,11 +52,19 @@ namespace FileHistory.Core
         }
 
         /// <summary>
-        /// Gets the size, in bytes, of the current file.
+        /// Gets the size, in bytes, of the current file
         /// </summary>
         public long Length
         {
             get { return Info.Length; }
+        }
+
+        /// <summary>
+        /// Get the creation time of the current file
+        /// </summary>
+        public DateTime CreationTime
+        {
+            get { return Info.CreationTime; }
         }
     }
 
