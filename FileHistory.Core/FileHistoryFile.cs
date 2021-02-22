@@ -9,11 +9,17 @@ namespace FileHistory.Core
     {
         public FileHistoryFile(string path, string name, string extension, string timestamp)
         {
+            FullPath = path;
             Name = name;
             Ext = extension;
             Time = timestamp;
             Info = new FileInfo(path);
         }
+
+        /// <summary>
+        /// Pathname 
+        /// </summary>
+        public string FullPath { get; private set; }
 
         /// <summary>
         /// Filename 
@@ -36,7 +42,7 @@ namespace FileHistory.Core
         public FileInfo Info { get; private set; }
 
         /// <summary>
-        /// Original Filename 
+        /// Original Filename; excludes timestamp.
         /// </summary>
         public string RawName
         {
@@ -44,7 +50,7 @@ namespace FileHistory.Core
         }
 
         /// <summary>
-        /// Filename including extension
+        /// Original Filename including extension; excludes timestamp.
         /// </summary>
         public string FileName
         {
@@ -60,12 +66,11 @@ namespace FileHistory.Core
         }
 
         /// <summary>
-        /// Get the creation time of the current file
+        /// Get the creation time of the file
         /// </summary>
         public DateTime CreationTime
         {
             get { return Info.CreationTime; }
         }
     }
-
 }

@@ -39,7 +39,7 @@ namespace FileHistory.App
 					// output similar to dir
 					ColorConsole.Write($" {f.CreationTime} {f.Length,15:n0}", ConsoleColor.Cyan);
 					ColorConsole.Write($" {f.RawName}", ConsoleColor.Yellow);
-					ColorConsole.WriteLine($" {f.Info.FullName}", ConsoleColor.Green);
+					ColorConsole.WriteLine($" {f.FullPath}", ConsoleColor.Green);
 				}
 
 				Console.WriteLine();
