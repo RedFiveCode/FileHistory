@@ -1,19 +1,26 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.IO.Abstractions;
 
 namespace FileHistory.Core
 {
     [DebuggerDisplay("Name={Name}, Ext={Ext}, Time={Time}")]
     public class FileHistoryFile
     {
+        private IFileInfo Info;
+
         public FileHistoryFile(string path, string name, string extension, string timestamp)
+            : this(new FileSystem(), path, name, extension, timestamp)
+        { }
+
+        public FileHistoryFile(IFileSystem fileSystem, string path, string name, string extension, string timestamp)
         {
             FullPath = path;
             Name = name;
             Ext = extension;
             Time = timestamp;
-            Info = new FileInfo(path);
+            Info = fileSystem.FileInfo.FromFileName(path);
         }
 
         /// <summary>
@@ -35,11 +42,6 @@ namespace FileHistory.Core
         /// File timestamp
         /// </summary>
         public string Time { get; private set; }
-
-        /// <summary>
-        /// File info
-        /// </summary>
-        public FileInfo Info { get; private set; }
 
         /// <summary>
         /// Original Filename; excludes timestamp.
