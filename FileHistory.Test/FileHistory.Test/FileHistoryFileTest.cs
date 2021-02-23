@@ -44,7 +44,7 @@ namespace FileHistory.Test
         {
             var target = new FileHistoryFile(@"\\server\somepath\filename (2016_07_07 18_56_08 UTC).ext", "filename", ".ext", "2016_07_07 18_56_08 UTC");
 
-            Assert.AreEqual(".ext", target.Ext);
+            Assert.AreEqual(".ext", target.Extension);
         }
 
         [TestMethod]

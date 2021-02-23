@@ -18,7 +18,7 @@ namespace FileHistory.Core
         {
             FullPath = path;
             Name = name;
-            Ext = extension;
+            Extension = extension;
             Time = timestamp;
             Info = fileSystem.FileInfo.FromFileName(path);
         }
@@ -36,7 +36,7 @@ namespace FileHistory.Core
         /// <summary>
         /// File extension; optional (includes dot) 
         /// </summary>
-        public string Ext { get; private set; }
+        public string Extension { get; private set; }
 
         /// <summary>
         /// File timestamp
@@ -48,7 +48,7 @@ namespace FileHistory.Core
         /// </summary>
         public string RawName
         {
-            get { return Name + " (" + Time + ")" + Ext; }
+            get { return Name + " (" + Time + ")" + Extension; }
         }
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace FileHistory.Core
         /// </summary>
         public string FileName
         {
-            get { return Name + Ext; }
+            get { return Name + Extension; }
         }
 
         /// <summary>

@@ -22,14 +22,14 @@ namespace FileHistory.Core
         /// <summary>
         /// File extension; optional (includes dot) 
         /// </summary>
-        public string Ext { get; private set; }
+        public string Extension { get; private set; }
 
         /// <summary>
         /// Filename including extension
         /// </summary>
         public string Fullname
         {
-            get { return Name + Ext; }
+            get { return Name + Extension; }
         }
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace FileHistory.Core
             }
 
             Name = Path.GetFileNameWithoutExtension(fullname);
-            Ext = Path.GetExtension(fullname);
+            Extension = Path.GetExtension(fullname);
             Files = new List<FileHistoryFile>(files);
         }
     }
