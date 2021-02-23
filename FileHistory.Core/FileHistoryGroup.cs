@@ -50,7 +50,11 @@ namespace FileHistory.Core
 
         public FileHistoryGroup(string fullname, IEnumerable<FileHistoryFile> files)
         {
-            Folder = Path.GetDirectoryName(fullname);
+            if (files.Any())
+            {
+                Folder = Path.GetDirectoryName(files.First().FullPath);
+            }
+
             Name = Path.GetFileNameWithoutExtension(fullname);
             Ext = Path.GetExtension(fullname);
             Files = new List<FileHistoryFile>(files);
