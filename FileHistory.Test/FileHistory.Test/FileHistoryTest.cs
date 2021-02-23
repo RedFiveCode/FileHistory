@@ -186,7 +186,7 @@ namespace FileHistory.Test
             Assert.AreEqual(@"\\server\somepath\filename (2016_07_07 18_56_08 UTC).ext", result.FullPath);
             Assert.AreEqual("filename", result.Name); 
             Assert.AreEqual("2016_07_07 18_56_08 UTC", result.Time);
-            Assert.AreEqual(".ext", result.Ext);
+            Assert.AreEqual(".ext", result.Extension);
         }
 
         [TestMethod]
@@ -201,7 +201,7 @@ namespace FileHistory.Test
             Assert.AreEqual(@"\\server\somepath\filename (2016_07_07 18_56_08 UTC)", result.FullPath);
             Assert.AreEqual("filename", result.Name);
             Assert.AreEqual("2016_07_07 18_56_08 UTC", result.Time);
-            Assert.AreEqual(String.Empty, result.Ext);
+            Assert.AreEqual(String.Empty, result.Extension);
         }
 
         [TestMethod]

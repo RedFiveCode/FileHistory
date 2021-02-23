@@ -24,7 +24,7 @@ namespace FileHistory.Test
             Assert.AreEqual(@"\\server\somepath", target.Folder);
             Assert.AreEqual("filename.ext", target.Fullname);
             Assert.AreEqual("filename", target.Name);
-            Assert.AreEqual(".ext", target.Ext);
+            Assert.AreEqual(".ext", target.Extension);
             Assert.IsNotNull(target.Files);
             CollectionAssert.AreEqual(fhList, target.Files);
         }
