@@ -71,6 +71,7 @@
     <Compile Include="FileHistoryFileTest.cs" />
     <Compile Include="FileHistoryGroupTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="FileHistoryTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
