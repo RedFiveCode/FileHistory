@@ -45,9 +45,9 @@ namespace FileHistory.Test
             var mockFileSystem = new MockFileSystem();
             var fhList = new List<FileHistoryFile>()
             {
-                CreateFileHistoryFileAnfAddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2021_01_01 10_10_00 UTC).ext", "filename", ".ext", "2021_01_01 10_10_00 UTC", new DateTime(2021, 1, 1, 10, 10, 0)),
-                CreateFileHistoryFileAnfAddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2021_01_01 10_11_00 UTC).ext", "filename", ".ext", "2021_01_01 10_11_00 UTC", new DateTime(2021, 1, 1, 10, 12, 0)),
-                CreateFileHistoryFileAnfAddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2021_01_01 10_12_00 UTC).ext", "filename", ".ext", "2021_01_01 10_12_00 UTC", new DateTime(2021, 1, 1, 10, 12, 0)),
+                CreateFileHistoryFileAndAddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2021_01_01 10_10_00 UTC).ext", "filename", ".ext", "2021_01_01 10_10_00 UTC", new DateTime(2021, 1, 1, 10, 10, 0)),
+                CreateFileHistoryFileAndAddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2021_01_01 10_11_00 UTC).ext", "filename", ".ext", "2021_01_01 10_11_00 UTC", new DateTime(2021, 1, 1, 10, 12, 0)),
+                CreateFileHistoryFileAndAddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2021_01_01 10_12_00 UTC).ext", "filename", ".ext", "2021_01_01 10_12_00 UTC", new DateTime(2021, 1, 1, 10, 12, 0)),
             };
 
             var target = new FileHistoryGroup("filename.ext", fhList);
@@ -55,7 +55,7 @@ namespace FileHistory.Test
             Assert.AreEqual(36L, target.FileSize); // 3 files each with 12 bytes ("Test data...")
         }
 
-        private FileHistoryFile CreateFileHistoryFileAnfAddToFileSystem(MockFileSystem mockFileSystem, string path, string filename, string extension, string timestamp, DateTime created)
+        private FileHistoryFile CreateFileHistoryFileAndAddToFileSystem(MockFileSystem mockFileSystem, string path, string filename, string extension, string timestamp, DateTime created)
         {
             mockFileSystem.AddFile(path, new MockFileData("Test data...") { CreationTime = created });
 
