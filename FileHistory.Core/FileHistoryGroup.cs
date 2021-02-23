@@ -6,7 +6,7 @@ using System.Linq;
 namespace FileHistory.Core
 {
 
-    [DebuggerDisplay("Name={Name}, Ext={Ext}, Folder={Folder}")]
+    [DebuggerDisplay("Name={Name}, Extension={Extension}, Folder={Folder}")]
     public class FileHistoryGroup
     {
         /// <summary>
