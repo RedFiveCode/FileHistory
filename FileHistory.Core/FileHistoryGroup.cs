@@ -1,9 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 
 namespace FileHistory.Core
 {
+
+    [DebuggerDisplay("Name={Name}, Ext={Ext}, Folder={Folder}")]
     public class FileHistoryGroup
     {
         /// <summary>

@@ -5,7 +5,7 @@ using System.IO.Abstractions;
 
 namespace FileHistory.Core
 {
-    [DebuggerDisplay("Name={Name}, Ext={Ext}, Time={Time}")]
+    [DebuggerDisplay("Name={Name}, Ext={Ext}, Time={Time}, FullPath={FullPath}")]
     public class FileHistoryFile
     {
         private IFileInfo Info;
