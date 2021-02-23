@@ -22,6 +22,7 @@ namespace FileHistory.Test
 
             var target = new FileHistoryGroup("filename.ext", fhList);
 
+            Assert.AreEqual("filename.ext", target.Fullname);
             Assert.AreEqual("filename", target.Name);
             Assert.AreEqual(".ext", target.Ext);
             Assert.IsNotNull(target.Files);
