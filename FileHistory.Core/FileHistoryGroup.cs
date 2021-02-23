@@ -7,6 +7,11 @@ namespace FileHistory.Core
     public class FileHistoryGroup
     {
         /// <summary>
+        /// Folder name 
+        /// </summary>
+        public string Folder { get; private set; }
+
+        /// <summary>
         /// Filename 
         /// </summary>
         public string Name { get; private set; }
@@ -42,6 +47,7 @@ namespace FileHistory.Core
 
         public FileHistoryGroup(string fullname, IEnumerable<FileHistoryFile> files)
         {
+            Folder = Path.GetDirectoryName(fullname);
             Name = Path.GetFileNameWithoutExtension(fullname);
             Ext = Path.GetExtension(fullname);
             Files = new List<FileHistoryFile>(files);
