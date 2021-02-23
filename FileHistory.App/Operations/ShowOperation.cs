@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using FileHistory.Core;
 using FileHistory.Utils;
 
 namespace FileHistory.App

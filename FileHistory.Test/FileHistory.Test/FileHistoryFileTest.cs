@@ -1,6 +1,5 @@
 ﻿using FileHistory.Core;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 
 namespace FileHistory.Test
 {
