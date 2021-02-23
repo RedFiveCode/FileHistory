@@ -21,22 +21,7 @@ namespace FileHistory.Test
 
             var target = new FileHistoryGroup("filename.ext", fhList);
 
-            Assert.AreEqual(String.Empty, target.Folder);
-            Assert.AreEqual("filename.ext", target.Fullname);
-            Assert.AreEqual("filename", target.Name);
-            Assert.AreEqual(".ext", target.Ext);
-            Assert.IsNotNull(target.Files);
-            CollectionAssert.AreEqual(fhList, target.Files);
-        }
-
-        [TestMethod]
-        public void FileHistoryGroup_SubFolder_Ctor_Sets_Properties()
-        {
-            var fhList = CreateFileHistoryFileList();
-
-            var target = new FileHistoryGroup(@"\\server\share\folder\filename.ext", fhList);
-
-            Assert.AreEqual(@"\\server\share\folder", target.Folder);
+            Assert.AreEqual(@"\\server\somepath", target.Folder);
             Assert.AreEqual("filename.ext", target.Fullname);
             Assert.AreEqual("filename", target.Name);
             Assert.AreEqual(".ext", target.Ext);
