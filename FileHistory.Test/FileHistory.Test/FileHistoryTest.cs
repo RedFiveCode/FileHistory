@@ -107,6 +107,54 @@ namespace FileHistory.Test
             Assert.AreEqual(0, results.Count);
         }
 
+        [TestMethod]
+        public void GetFolderGroupDetails_Recursive_Returns_ListOfFiles()
+        {
+            // arrange
+            var mockFileSystem = new MockFileSystem();
+            AddToFileSystem(mockFileSystem, @"\\server\somepath\FolderOne\filename (2021_01_01 10_10_00 UTC).ext", new DateTime(2021, 1, 1, 10, 10, 0));
+            AddToFileSystem(mockFileSystem, @"\\server\somepath\FolderOne\filename (2021_01_01 10_11_00 UTC).ext", new DateTime(2021, 1, 1, 10, 12, 0));
+            AddToFileSystem(mockFileSystem, @"\\server\somepath\FolderOne\filename (2021_01_01 10_12_00 UTC).ext", new DateTime(2021, 1, 1, 10, 12, 0));
+
+            AddToFileSystem(mockFileSystem, @"\\server\somepath\FolderTwo\another filename (2021_01_01 13_13_13 UTC).extension", new DateTime(2021, 1, 1, 13, 13, 13));
+            AddToFileSystem(mockFileSystem, @"\\server\somepath\FolderTwo\another filename (2021_01_01 14_14_14 UTC).extension", new DateTime(2021, 1, 1, 14, 14, 14));
+
+            var target = new Core.FileHistory(mockFileSystem);
+
+            // act
+            var results = target.GetFolderGroupDetails(@"\\server\somepath", true, "*.*", 0L);
+
+            // assert
+            Assert.IsNotNull(results);
+            Assert.AreEqual(2, results.Count);
+
+            AssertGroup(results[0], @"\\server\somepath\FolderTwo", "another filename.extension", 2);
+            AssertGroup(results[1], @"\\server\somepath\FolderOne", "filename.ext", 3);
+        }
+
+        [TestMethod]
+        public void GetFolderGroupDetails_LargeFiles_Returns_ListOfFiles()
+        {
+            // arrange
+            var mockFileSystem = new MockFileSystem();
+            AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2021_01_01 10_10_00 UTC).ext", new DateTime(2021, 1, 1, 10, 10, 0));
+            AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2021_01_01 10_11_00 UTC).ext", new DateTime(2021, 1, 1, 10, 12, 0));
+            AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2021_01_01 10_12_00 UTC).ext", new DateTime(2021, 1, 1, 10, 12, 0));
+
+            AddToFileSystem(mockFileSystem, @"\\server\somepath\another filename (2021_01_01 13_13_13 UTC).extension", new DateTime(2021, 1, 1, 13, 13, 13), 1000);
+            AddToFileSystem(mockFileSystem, @"\\server\somepath\another filename (2021_01_01 14_14_14 UTC).extension", new DateTime(2021, 1, 1, 14, 14, 14), 1000);
+
+            var target = new Core.FileHistory(mockFileSystem);
+
+            // act
+            var results = target.GetFolderGroupDetails(@"\\server\somepath", false, "*.*", 100L);
+
+            // assert
+            Assert.IsNotNull(results);
+            Assert.AreEqual(1, results.Count);
+
+            AssertGroup(results[0], @"\\server\somepath", "another filename.extension", 2);
+        }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
@@ -169,6 +217,12 @@ namespace FileHistory.Test
         private void AddToFileSystem(MockFileSystem mockFileSystem, string path, DateTime created)
         {
             mockFileSystem.AddFile(path, new MockFileData("Test data...") { CreationTime = created });
+        }
+
+        private void AddToFileSystem(MockFileSystem mockFileSystem, string path, DateTime created, int length)
+        {
+            var data = new string('.', length);
+            mockFileSystem.AddFile(path, new MockFileData(data) { CreationTime = created });
         }
 
         private void AssertContainsFile(IEnumerable<FileHistoryGroup> files, string filename)
