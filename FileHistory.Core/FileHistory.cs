@@ -49,7 +49,7 @@ namespace FileHistory.Core
 			// perhaps better to move the folder recursion logic into a calling function???
 
 
-			var details = files.Select(f => Split(f))
+			var details = files.Select(f => GetFileDetails(f))
 							   .ToList();
 
 			details.RemoveAll(f => f == null); // remove null entries (for files that are not file history records)
@@ -69,7 +69,7 @@ namespace FileHistory.Core
 			return grouping;
 		}
 
-		public FileHistoryFile Split(string path)
+		public FileHistoryFile GetFileDetails(string path)
 		{
 			if (String.IsNullOrEmpty(path))
             {
