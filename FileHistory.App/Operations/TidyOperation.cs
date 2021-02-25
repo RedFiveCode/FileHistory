@@ -20,7 +20,7 @@ namespace FileHistory.App
 
 			ColorConsole.WriteLine($"Processing folder: {options.Folder}...", ConsoleColor.Gray);
 
-			var fh = new FileHistory.Core.FileHistory();
+			var fh = new FileHistoryDiscovery();
 
 			var fileGroups = fh.GetFolderGroupDetails(options.Folder, options.RecurseSubFolders, options.WildcardFilter, options.MinimumSize);
 

@@ -7,14 +7,14 @@ using System.Text.RegularExpressions;
 
 namespace FileHistory.Core
 {
-	public class FileHistory
+	public class FileHistoryDiscovery
 	{
 		private IFileSystem fileSystem;
 
-		public FileHistory() : this(new FileSystem())
+		public FileHistoryDiscovery() : this(new FileSystem())
 		{ }
 
-		public FileHistory(IFileSystem fileSystem)
+		public FileHistoryDiscovery(IFileSystem fileSystem)
 		{
 			this.fileSystem = fileSystem;
 		}

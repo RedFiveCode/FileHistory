@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using FileHistory.Core;
 using FileHistory.Utils;
 
 namespace FileHistory.App
@@ -18,7 +19,7 @@ namespace FileHistory.App
 
 			ColorConsole.WriteLine($"Processing folder: {options.Folder}...", ConsoleColor.Gray);
 
-			var fh = new FileHistory.Core.FileHistory();
+			var fh = new FileHistoryDiscovery();
 
 			var fileGroups = fh.GetFolderGroupDetails(options.Folder, options.RecurseSubFolders, options.WildcardFilter, options.MinimumSize);
 

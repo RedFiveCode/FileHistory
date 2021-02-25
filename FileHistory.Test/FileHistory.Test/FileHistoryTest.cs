@@ -8,13 +8,13 @@ using System.Collections.Generic;
 namespace FileHistory.Test
 {
     [TestClass]
-    public class FileHistoryTest
+    public class FileHistoryDiscoveryTest
     {
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void GetFolderGroupDetails_Path_Null_Throws_ArgumentNullException()
         {
-            var target = new Core.FileHistory();
+            var target = new Core.FileHistoryDiscovery();
 
             var results = target.GetFolderGroupDetails(null, false, String.Empty, 0L);
         }
@@ -23,7 +23,7 @@ namespace FileHistory.Test
         [ExpectedException(typeof(ArgumentNullException))]
         public void GetFolderGroupDetails_Path_Empty_Throws_ArgumentNullException()
         {
-            var target = new Core.FileHistory();
+            var target = new Core.FileHistoryDiscovery();
 
             var results = target.GetFolderGroupDetails("", false, String.Empty, 0L);
         }
@@ -36,7 +36,7 @@ namespace FileHistory.Test
             AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2021_01_01 10_11_00 UTC).ext", new DateTime(2021, 1, 1, 10, 12, 0));
             AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2021_01_01 10_12_00 UTC).ext", new DateTime(2021, 1, 1, 10, 12, 0));
 
-            var target = new Core.FileHistory(mockFileSystem);
+            var target = new Core.FileHistoryDiscovery(mockFileSystem);
 
             var results = target.GetFolderGroupDetails(@"\\server\somepath");
 
@@ -56,7 +56,7 @@ namespace FileHistory.Test
             AddToFileSystem(mockFileSystem, @"\\server\somepath\another filename (2021_01_01 13_13_13 UTC).extension", new DateTime(2021, 1, 1, 13, 13, 13));
             AddToFileSystem(mockFileSystem, @"\\server\somepath\another filename (2021_01_01 14_14_14 UTC).extension", new DateTime(2021, 1, 1, 14, 14, 14));
 
-            var target = new Core.FileHistory(mockFileSystem);
+            var target = new Core.FileHistoryDiscovery(mockFileSystem);
 
             var results = target.GetFolderGroupDetails(@"\\server\somepath");
 
@@ -78,7 +78,7 @@ namespace FileHistory.Test
             AddToFileSystem(mockFileSystem, @"\\server\somepath\another filename (2021_01_01 13_13_13 UTC).extension", new DateTime(2021, 1, 1, 13, 13, 13));
             AddToFileSystem(mockFileSystem, @"\\server\somepath\another filename (2021_01_01 14_14_14 UTC).extension", new DateTime(2021, 1, 1, 14, 14, 14));
 
-            var target = new Core.FileHistory(mockFileSystem);
+            var target = new Core.FileHistoryDiscovery(mockFileSystem);
 
             var results = target.GetFolderGroupDetails(@"\\server\somepath", false, "an*.*", 0L);
 
@@ -99,7 +99,7 @@ namespace FileHistory.Test
             AddToFileSystem(mockFileSystem, @"\\server\somepath\another filename (2021_01_01 13_13_13 UTC).extension", new DateTime(2021, 1, 1, 13, 13, 13));
             AddToFileSystem(mockFileSystem, @"\\server\somepath\another filename (2021_01_01 14_14_14 UTC).extension", new DateTime(2021, 1, 1, 14, 14, 14));
 
-            var target = new Core.FileHistory(mockFileSystem);
+            var target = new Core.FileHistoryDiscovery(mockFileSystem);
 
             var results = target.GetFolderGroupDetails(@"\\server\somepath", false, "Z*.*", 0L);
 
@@ -119,7 +119,7 @@ namespace FileHistory.Test
             AddToFileSystem(mockFileSystem, @"\\server\somepath\FolderTwo\another filename (2021_01_01 13_13_13 UTC).extension", new DateTime(2021, 1, 1, 13, 13, 13));
             AddToFileSystem(mockFileSystem, @"\\server\somepath\FolderTwo\another filename (2021_01_01 14_14_14 UTC).extension", new DateTime(2021, 1, 1, 14, 14, 14));
 
-            var target = new Core.FileHistory(mockFileSystem);
+            var target = new Core.FileHistoryDiscovery(mockFileSystem);
 
             // act
             var results = target.GetFolderGroupDetails(@"\\server\somepath", true, "*.*", 0L);
@@ -144,7 +144,7 @@ namespace FileHistory.Test
             AddToFileSystem(mockFileSystem, @"\\server\somepath\another filename (2021_01_01 13_13_13 UTC).extension", new DateTime(2021, 1, 1, 13, 13, 13), 1000);
             AddToFileSystem(mockFileSystem, @"\\server\somepath\another filename (2021_01_01 14_14_14 UTC).extension", new DateTime(2021, 1, 1, 14, 14, 14), 1000);
 
-            var target = new Core.FileHistory(mockFileSystem);
+            var target = new Core.FileHistoryDiscovery(mockFileSystem);
 
             // act
             var results = target.GetFolderGroupDetails(@"\\server\somepath", false, "*.*", 100L);
@@ -160,7 +160,7 @@ namespace FileHistory.Test
         [ExpectedException(typeof(ArgumentNullException))]
         public void GetFileDetails_Path_Null_Throws_ArgumentNullException()
         {
-            var target = new Core.FileHistory();
+            var target = new Core.FileHistoryDiscovery();
 
             target.GetFileDetails(null);
         }
@@ -169,7 +169,7 @@ namespace FileHistory.Test
         [ExpectedException(typeof(ArgumentNullException))]
         public void GetFileDetails_Path_Empty_Throws_ArgumentNullException()
         {
-            var target = new Core.FileHistory();
+            var target = new Core.FileHistoryDiscovery();
 
             target.GetFileDetails("");
         }
@@ -177,7 +177,7 @@ namespace FileHistory.Test
         [TestMethod]
         public void GetFileDetails_FileWithExtension_Returns_ValidObject()
         {
-            var target = new Core.FileHistory();
+            var target = new Core.FileHistoryDiscovery();
 
             var result = target.GetFileDetails(@"\\server\somepath\filename (2016_07_07 18_56_08 UTC).ext");
 
@@ -192,7 +192,7 @@ namespace FileHistory.Test
         [TestMethod]
         public void GetFileDetails_FileWithoutExtension_Returns_ValidObject()
         {
-            var target = new Core.FileHistory();
+            var target = new Core.FileHistoryDiscovery();
 
             var result = target.GetFileDetails(@"\\server\somepath\filename (2016_07_07 18_56_08 UTC)");
 
@@ -207,7 +207,7 @@ namespace FileHistory.Test
         [TestMethod]
         public void GetFileDetails_FileNotMatched_Returns_Null()
         {
-            var target = new Core.FileHistory();
+            var target = new Core.FileHistoryDiscovery();
 
             var result = target.GetFileDetails(@"\\server\somepath\filename.ext");
 
