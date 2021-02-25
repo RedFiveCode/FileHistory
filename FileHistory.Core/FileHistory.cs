@@ -69,16 +69,6 @@ namespace FileHistory.Core
 			return grouping;
 		}
 
-		public List<FileHistoryFile> GetFolderDetails(string path)
-		{
-			var files = Directory.EnumerateFiles(path);
-			var details = files.Select(f => GetFileDetails(f))
-								.ToList();
-			details.RemoveAll(f => f == null); // remove null entries (for files that are not file history records)
-
-			return details;
-		}
-
 		public FileHistoryFile GetFileDetails(string path)
 		{
 			var file = Path.GetFileName(path);
