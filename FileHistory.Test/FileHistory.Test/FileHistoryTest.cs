@@ -158,28 +158,28 @@ namespace FileHistory.Test
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        public void Split_Path_Null_Throws_ArgumentNullException()
+        public void GetFileDetails_Path_Null_Throws_ArgumentNullException()
         {
             var target = new Core.FileHistory();
 
-            target.Split(null);
+            target.GetFileDetails(null);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        public void Split_Path_Empty_Throws_ArgumentNullException()
+        public void GetFileDetails_Path_Empty_Throws_ArgumentNullException()
         {
             var target = new Core.FileHistory();
 
-            target.Split("");
+            target.GetFileDetails("");
         }
 
         [TestMethod]
-        public void Split_FileWithExtension_Returns_ValidObject()
+        public void GetFileDetails_FileWithExtension_Returns_ValidObject()
         {
             var target = new Core.FileHistory();
 
-            var result = target.Split(@"\\server\somepath\filename (2016_07_07 18_56_08 UTC).ext");
+            var result = target.GetFileDetails(@"\\server\somepath\filename (2016_07_07 18_56_08 UTC).ext");
 
             Assert.IsNotNull(result);
 
@@ -190,11 +190,11 @@ namespace FileHistory.Test
         }
 
         [TestMethod]
-        public void Split_FileWithoutExtension_Returns_ValidObject()
+        public void GetFileDetails_FileWithoutExtension_Returns_ValidObject()
         {
             var target = new Core.FileHistory();
 
-            var result = target.Split(@"\\server\somepath\filename (2016_07_07 18_56_08 UTC)");
+            var result = target.GetFileDetails(@"\\server\somepath\filename (2016_07_07 18_56_08 UTC)");
 
             Assert.IsNotNull(result);
 
@@ -205,11 +205,11 @@ namespace FileHistory.Test
         }
 
         [TestMethod]
-        public void Split_FileNotMatched_Returns_Null()
+        public void GetFileDetails_FileNotMatched_Returns_Null()
         {
             var target = new Core.FileHistory();
 
-            var result = target.Split(@"\\server\somepath\filename.ext");
+            var result = target.GetFileDetails(@"\\server\somepath\filename.ext");
 
             Assert.IsNull(result);
         }
