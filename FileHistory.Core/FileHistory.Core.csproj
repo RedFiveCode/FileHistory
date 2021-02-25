@@ -44,7 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FileHistory.cs" />
+    <Compile Include="FileHistoryDiscovery.cs" />
     <Compile Include="FileHistoryFile.cs" />
     <Compile Include="FileHistoryGroup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
