@@ -1,4 +1,6 @@
 ﻿using CommandLine;
+using FileHistory.Utils;
+using System;
 using System.Collections.Generic;
 
 namespace FileHistory.App
@@ -11,9 +13,16 @@ namespace FileHistory.App
             //                        .WithParsed(RunOptions)
             //                        .WithNotParsed(HandleParseError);
 
-            CommandLine.Parser.Default.ParseArguments<ShowCommandLineOptions, TidyCommandLineOptions>(args)
-                .WithParsed<ShowCommandLineOptions>(cl => Show(cl))
-                .WithParsed<TidyCommandLineOptions>(cl => Tidy(cl));
+            try
+            {
+                CommandLine.Parser.Default.ParseArguments<ShowCommandLineOptions, TidyCommandLineOptions>(args)
+                    .WithParsed<ShowCommandLineOptions>(cl => Show(cl))
+                    .WithParsed<TidyCommandLineOptions>(cl => Tidy(cl));
+            }
+            catch (Exception ex)
+            {
+                ColorConsole.WriteLine($"Error {ex.Message} at\n{ex.StackTrace}", ConsoleColor.Red);
+            }
         }
 
         static void Show(ShowCommandLineOptions options)
