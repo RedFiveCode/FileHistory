@@ -11,6 +11,34 @@ namespace FileHistory.Test
     public class FileHistoryDiscoveryTest
     {
         [TestMethod]
+        public void IsMatchingFile_FilenameNull_Returns_False()
+        {
+            // arrange
+            var mockFileSystem = new MockFileSystem();
+            var target = new FileHistoryDiscovery(mockFileSystem);
+
+            // act
+            var result = target.IsMatchingFile(null);
+
+            // assert
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod]
+        public void IsMatchingFile_FilenameFullPathValid_Returns_True()
+        {
+            // arrange
+            var mockFileSystem = new MockFileSystem();
+            var target = new FileHistoryDiscovery(mockFileSystem);
+
+            // act
+            var result = target.IsMatchingFile(@"\\server\somepath\filename (2021_01_01 10_10_00 UTC).extension");
+
+            // assert
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void GetFolderGroupDetails_Path_Null_Throws_ArgumentNullException()
         {
@@ -191,6 +219,52 @@ namespace FileHistory.Test
             Assert.AreEqual(1, results.Count);
 
             AssertGroup(results[0], @"\\server\somepath", "another filename.extension", 2);
+        }
+
+        [TestMethod]
+        public void GetFolderGroupDetails_NoMatchingFiles_Returns_EmptyList()
+        {
+            // arrange
+            var mockFileSystem = new MockFileSystem();
+            AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2021_01_01 10_10_00 UTC).ext", new DateTime(2021, 1, 1, 10, 10, 0));
+            AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2021_01_01 10_11_00 UTC).ext", new DateTime(2021, 1, 1, 10, 12, 0));
+            AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2021_01_01 10_12_00 UTC).ext", new DateTime(2021, 1, 1, 10, 12, 0));
+
+            AddToFileSystem(mockFileSystem, @"\\server\somepath\another filename (2021_01_01 13_13_13 UTC).extension", new DateTime(2021, 1, 1, 13, 13, 13), 1000);
+            AddToFileSystem(mockFileSystem, @"\\server\somepath\another filename (2021_01_01 14_14_14 UTC).extension", new DateTime(2021, 1, 1, 14, 14, 14), 1000);
+
+            var target = new FileHistoryDiscovery(mockFileSystem);
+
+            // act
+            var results = target.GetFolderGroupDetails(@"\\server\somepath", true, "*.myextension", 0L);
+
+            // assert
+            Assert.IsNotNull(results);
+            Assert.AreEqual(0, results.Count);
+        }
+
+        [TestMethod]
+        public void GetFolderGroupDetails_Ignores_NonFileHistoryFiles()
+        {
+            // arrange
+            var mockFileSystem = new MockFileSystem();
+            AddToFileSystem(mockFileSystem, @"\\server\somepath\some random file", new DateTime(2021, 1, 1, 1, 1, 1));
+            AddToFileSystem(mockFileSystem, @"\\server\somepath\another random file.ext", new DateTime(2021, 1, 1, 1, 1, 1));
+            AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2021_01_01 10_10_00 UTC).ext", new DateTime(2021, 1, 1, 10, 10, 0));
+            AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2021_01_01 10_11_00 UTC).ext", new DateTime(2021, 1, 1, 10, 12, 0));
+            AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2021_01_01 10_12_00 UTC).ext", new DateTime(2021, 1, 1, 10, 12, 0));
+
+            var target = new FileHistoryDiscovery(mockFileSystem);
+
+            // act
+            var results = target.GetFolderGroupDetails(@"\\server\somepath");
+
+            // assert
+            Assert.IsNotNull(results);
+            Assert.AreEqual(1, results.Count);
+            AssertGroup(results[0], "filename.ext", 3);
+            Assert.IsFalse(results[0].Files.Any(fh => fh.FileName == "some random file"));
+            Assert.IsFalse(results[0].Files.Any(fh => fh.FileName == "another random file.ext"));
         }
 
         [TestMethod]
