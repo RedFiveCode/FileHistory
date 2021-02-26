@@ -128,8 +128,45 @@ namespace FileHistory.Test
             Assert.IsNotNull(results);
             Assert.AreEqual(2, results.Count);
 
-            AssertGroup(results[0], @"\\server\somepath\FolderTwo", "another filename.extension", 2);
-            AssertGroup(results[1], @"\\server\somepath\FolderOne", "filename.ext", 3);
+            AssertGroup(results[0], @"\\server\somepath\FolderOne", "filename.ext", 3);
+            AssertGroupContainsFile(results[0], "filename (2021_01_01 10_10_00 UTC).ext");
+            AssertGroupContainsFile(results[0], "filename (2021_01_01 10_11_00 UTC).ext");
+            AssertGroupContainsFile(results[0], "filename (2021_01_01 10_12_00 UTC).ext");
+
+            AssertGroup(results[1], @"\\server\somepath\FolderTwo", "another filename.extension", 2);
+            AssertGroupContainsFile(results[1], "another filename (2021_01_01 13_13_13 UTC).extension");
+            AssertGroupContainsFile(results[1], "another filename (2021_01_01 14_14_14 UTC).extension");
+        }
+
+        [TestMethod]
+        public void GetFolderGroupDetails_Recursive_SameFilenameInDifferentSubFolders_Returns_ListOfFiles()
+        {
+            // arrange
+            var mockFileSystem = new MockFileSystem();
+            AddToFileSystem(mockFileSystem, @"\\server\somepath\FolderOne\filename (2021_01_01 10_10_00 UTC).ext", new DateTime(2021, 1, 1, 10, 10, 0));
+            AddToFileSystem(mockFileSystem, @"\\server\somepath\FolderOne\filename (2021_01_01 10_11_00 UTC).ext", new DateTime(2021, 1, 1, 10, 12, 0));
+            AddToFileSystem(mockFileSystem, @"\\server\somepath\FolderOne\filename (2021_01_01 10_12_00 UTC).ext", new DateTime(2021, 1, 1, 10, 12, 0));
+
+            AddToFileSystem(mockFileSystem, @"\\server\somepath\FolderTwo\filename (2021_02_02 20_13_13 UTC).ext", new DateTime(2021, 2, 2, 20, 13, 13));
+            AddToFileSystem(mockFileSystem, @"\\server\somepath\FolderTwo\filename (2021_02_02 21_14_14 UTC).ext", new DateTime(2021, 2, 2, 21, 14, 14));
+
+            var target = new FileHistoryDiscovery(mockFileSystem);
+
+            // act
+            var results = target.GetFolderGroupDetails(@"\\server\somepath", true, "*.*", 0L);
+
+            // assert
+            Assert.IsNotNull(results);
+            Assert.AreEqual(2, results.Count);
+
+            AssertGroup(results[0], @"\\server\somepath\FolderOne", "filename.ext", 3);
+            AssertGroupContainsFile(results[0], "filename (2021_01_01 10_10_00 UTC).ext");
+            AssertGroupContainsFile(results[0], "filename (2021_01_01 10_11_00 UTC).ext");
+            AssertGroupContainsFile(results[0], "filename (2021_01_01 10_12_00 UTC).ext");
+
+            AssertGroup(results[1], @"\\server\somepath\FolderTwo", "filename.ext", 2);
+            AssertGroupContainsFile(results[1], "filename (2021_02_02 20_13_13 UTC).ext");
+            AssertGroupContainsFile(results[1], "filename (2021_02_02 21_14_14 UTC).ext");
         }
 
         [TestMethod]
@@ -243,6 +280,12 @@ namespace FileHistory.Test
             Assert.AreEqual(expectedFoldername, group.Folder);
             Assert.AreEqual(expectedFilename, group.Fullname);
             Assert.AreEqual(expectedCount, group.FileCount);
+        }
+
+        private void AssertGroupContainsFile(FileHistoryGroup group, string expectedFilename)
+        {
+            Assert.IsNotNull(group);
+            Assert.IsTrue(group.Files.Any(fh => fh.RawName == expectedFilename));
         }
     }
 }

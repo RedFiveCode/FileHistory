@@ -30,24 +30,49 @@ namespace FileHistory.Core
 				throw new ArgumentNullException(nameof(path));
 			}
 
-			var wildcard = (String.IsNullOrEmpty(wildcardFilter) ? "*.*" : wildcardFilter);
-			var options = (recurseSubFolders ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly);
-
-			var files = fileSystem.Directory.EnumerateFiles(path, wildcard, options);
-
-			// get files in current folders
-			// and if recusrive, get sub-folders, and process each folder individually
-			// want to avoid any interference between groups of files in different folders that have the same name
 			if (recurseSubFolders)
 			{
-				fileSystem.Directory.EnumerateDirectories(path, "*.*", SearchOption.AllDirectories);
+				// get sub-folders, and get file groups in each sub-folder individually
+				var folders = fileSystem.Directory.EnumerateDirectories(path);
 
 				// for each folder
 				// get groups of files in that folder
+				var allGroups = new List<FileHistoryGroup>();
+
+				foreach (var folder in folders)
+                {
+					var groups = GetFolderGroupDetailsInternal(folder, wildcardFilter, minimumFileSize);
+
+					allGroups.AddRange(groups);
+				}
+
+				return allGroups;
+			}
+			else
+            {
+				// get file groups in current folder
+				return GetFolderGroupDetailsInternal(path, wildcardFilter, minimumFileSize);
+
+			}
+		}
+
+		/// <summary>
+		/// Get file groups in the specified folder
+		/// </summary>
+		/// <param name="path"></param>
+		/// <param name="wildcardFilter"></param>
+		/// <param name="minimumFileSize"></param>
+		/// <returns></returns>
+		private List<FileHistoryGroup> GetFolderGroupDetailsInternal(string path, string wildcardFilter, long minimumFileSize)
+		{
+			if (String.IsNullOrEmpty(path))
+			{
+				throw new ArgumentNullException(nameof(path));
 			}
 
-			// perhaps better to move the folder recursion logic into a calling function???
+			var wildcard = (String.IsNullOrEmpty(wildcardFilter) ? "*.*" : wildcardFilter);
 
+			var files = fileSystem.Directory.EnumerateFiles(path, wildcard, SearchOption.TopDirectoryOnly);
 
 			var details = files.Select(f => GetFileDetails(f))
 							   .ToList();
@@ -68,6 +93,7 @@ namespace FileHistory.Core
 
 			return grouping;
 		}
+
 
 		public FileHistoryFile GetFileDetails(string path)
 		{
