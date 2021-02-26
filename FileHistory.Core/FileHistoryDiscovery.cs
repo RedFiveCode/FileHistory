@@ -88,10 +88,9 @@ namespace FileHistory.Core
 
 			var files = fileSystem.Directory.EnumerateFiles(path, wildcard, SearchOption.TopDirectoryOnly);
 
-			var details = files.Select(f => GetFileDetails(f))
+			var details = files.Where(f => IsMatchingFile(f)) // ignore files that are not file history records
+							   .Select(f => GetFileDetails(f))
 							   .ToList();
-
-			details.RemoveAll(f => f == null); // remove null entries (for files that are not file history records)
 
 			if (minimumFileSize > 0) // optionally remove files smaller than minimum file size
 			{
@@ -121,7 +120,6 @@ namespace FileHistory.Core
             }
 
 			// does not match files with no extension
-			//var regex = new Regex(@".*\\(.*?) \((\d\d\d\d_\d\d_\d\d \d\d_\d\d_\d\d UTC)\)(\..*)?");
 			var regex = new Regex(@".*\\(?<name>.*?) \((?<ts>\d\d\d\d_\d\d_\d\d \d\d_\d\d_\d\d UTC)\)(?<ext>\..*)?");
 
 			if (regex.IsMatch(filename))
@@ -152,6 +150,18 @@ namespace FileHistory.Core
 
 			// no match for files that are not file history records
 			return null;
+		}
+
+		public bool IsMatchingFile(string filename)
+        {
+			if (String.IsNullOrEmpty(filename))
+			{
+				return false;
+			}
+
+			var regex = new Regex(@".*\\(?<name>.*?) \((?<ts>\d\d\d\d_\d\d_\d\d \d\d_\d\d_\d\d UTC)\)(?<ext>\..*)?");
+
+			return regex.IsMatch(filename);
 		}
 	}
 }
