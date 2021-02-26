@@ -43,7 +43,7 @@ namespace FileHistory.Core
         public string Time { get; private set; }
 
         /// <summary>
-        /// Original Filename; excludes timestamp.
+        /// Original Filename; includes timestamp.
         /// </summary>
         public string RawName
         {
