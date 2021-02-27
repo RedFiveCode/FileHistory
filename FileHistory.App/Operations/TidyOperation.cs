@@ -30,10 +30,10 @@ namespace FileHistory.App
 				return;
 			}
 
-			var filesToKeepAndDeleete = GetFilesToKeepAndDelete(fileGroups, options.KeepGenerations);
+			var filesToKeepAndDelete = GetFilesToKeepAndDelete(fileGroups, options.KeepGenerations);
 
-			var keepList = filesToKeepAndDeleete.Item1;
-			var deleteList = filesToKeepAndDeleete.Item2;
+			var keepList = filesToKeepAndDelete.Item1;
+			var deleteList = filesToKeepAndDelete.Item2;
 
 			if (options.Preview)
             {
