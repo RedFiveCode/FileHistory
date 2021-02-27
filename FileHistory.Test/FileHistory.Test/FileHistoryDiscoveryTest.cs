@@ -222,6 +222,28 @@ namespace FileHistory.Test
         }
 
         [TestMethod]
+        public void GetFolderGroupDetails_NoMatchingLargeFiles_Returns_EmptyList()
+        {
+            // arrange
+            var mockFileSystem = new MockFileSystem();
+            AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2021_01_01 10_10_00 UTC).ext", new DateTime(2021, 1, 1, 10, 10, 0));
+            AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2021_01_01 10_11_00 UTC).ext", new DateTime(2021, 1, 1, 10, 12, 0));
+            AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2021_01_01 10_12_00 UTC).ext", new DateTime(2021, 1, 1, 10, 12, 0));
+
+            AddToFileSystem(mockFileSystem, @"\\server\somepath\another filename (2021_01_01 13_13_13 UTC).extension", new DateTime(2021, 1, 1, 13, 13, 13), 1000);
+            AddToFileSystem(mockFileSystem, @"\\server\somepath\another filename (2021_01_01 14_14_14 UTC).extension", new DateTime(2021, 1, 1, 14, 14, 14), 1000);
+
+            var target = new FileHistoryDiscovery(mockFileSystem);
+
+            // act
+            var results = target.GetFolderGroupDetails(@"\\server\somepath", false, "*.*", 1000 * 1000L);
+
+            // assert
+            Assert.IsNotNull(results);
+            Assert.AreEqual(0, results.Count);
+        }
+
+        [TestMethod]
         public void GetFolderGroupDetails_NoMatchingFiles_Returns_EmptyList()
         {
             // arrange
