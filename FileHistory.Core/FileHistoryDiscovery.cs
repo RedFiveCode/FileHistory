@@ -79,11 +79,6 @@ namespace FileHistory.Core
 		/// <returns></returns>
 		private List<FileHistoryGroup> GetFolderGroupDetailsInternal(string path, string wildcardFilter, long minimumFileSize)
 		{
-			if (String.IsNullOrEmpty(path))
-			{
-				throw new ArgumentNullException(nameof(path));
-			}
-
 			var wildcard = (String.IsNullOrEmpty(wildcardFilter) ? "*.*" : wildcardFilter);
 
 			var files = fileSystem.Directory.EnumerateFiles(path, wildcard, SearchOption.TopDirectoryOnly);
@@ -128,20 +123,12 @@ namespace FileHistory.Core
 
 				FileHistoryFile details = null;
 
-				if (match.Groups.Count == 3)
-                {
-					details = new FileHistoryFile(fileSystem,
-												    filename,
-													match.Groups["name"].Value,
-													String.Empty,
-													match.Groups["ts"].Value);
-                }
-				else if (match.Groups.Count == 4) // optional extension
+				if (match.Groups.Count == 4) 
 				{
 					details = new FileHistoryFile(fileSystem,
 												  filename,
 												  match.Groups["name"].Value,
-												  match.Groups["ext"].Value,
+												  match.Groups["ext"].Value, // will be empty if file has no extension
 												  match.Groups["ts"].Value);
 				}
 

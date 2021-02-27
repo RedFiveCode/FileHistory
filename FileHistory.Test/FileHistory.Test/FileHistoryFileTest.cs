@@ -1,5 +1,7 @@
 ﻿using FileHistory.Core;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.IO.Abstractions.TestingHelpers;
 
 namespace FileHistory.Test
 {
@@ -52,6 +54,19 @@ namespace FileHistory.Test
             var target = new FileHistoryFile(@"\\server\somepath\filename (2016_07_07 18_56_08 UTC).ext", "filename", ".ext", "2016_07_07 18_56_08 UTC");
 
             Assert.AreEqual("2016_07_07 18_56_08 UTC", target.Time);
+        }
+
+        [TestMethod]
+        public void CreationTime_Returns_Expected_Value()
+        {
+            var mockFileSystem = new MockFileSystem();
+            mockFileSystem.AddFile(@"\\server\somepath\filename (2016_07_07 18_56_08 UTC).ext",
+                                   new MockFileData("Test data...") { CreationTime = new DateTime(2016, 7, 7, 18, 56, 8) });
+
+            var target = new FileHistoryFile(mockFileSystem, @"\\server\somepath\filename (2016_07_07 18_56_08 UTC).ext", "filename", ".ext", "2016_07_07 18_56_08 UTC");
+
+            var expected = new DateTime(2016, 7, 7, 18, 56, 8);
+            Assert.AreEqual(expected, target.CreationTime);
         }
     }
 }
