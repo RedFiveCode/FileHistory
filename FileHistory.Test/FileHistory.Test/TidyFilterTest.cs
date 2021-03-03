@@ -210,6 +210,33 @@ namespace FileHistory.Test
             Assert.AreEqual(@"\\server\somepath\filename (2021_01_01 00_00_00 UTC).ext", result.DeleteList[1].FullPath);
         }
 
+        [TestMethod]
+        public void GetFilesToKeepAndDelete_OnlyFile_ReturnsKeepListAndDeleteList()
+        {
+            // arrange
+            var target = new TidyFilter();
+
+            var mockFileSystem = new MockFileSystem();
+            var fhList = new List<FileHistoryFile>()
+            {
+                CreateFileHistoryFileAndAddToFileSystem(mockFileSystem, @"\\server\somepath", "filename", ".ext", new DateTime(2021, 1, 1)),
+            };
+
+
+            var group = new FileHistoryGroup(@"\\server\somepath", fhList);
+
+            // act
+            var result = target.GetFilesToKeepAndDelete(group, 1);
+
+            // keep list
+            Assert.AreEqual(1, result.KeepList.Count);
+            Assert.AreEqual(@"\\server\somepath\filename (2021_01_01 00_00_00 UTC).ext", result.KeepList[0].FullPath); // most recent files
+
+            // delete list
+            Assert.AreEqual(0, result.DeleteList.Count);
+        }
+
+
         private void AddToFileSystem(MockFileSystem mockFileSystem, string path, DateTime created)
         {
             mockFileSystem.AddFile(path, new MockFileData("Test data...") { CreationTime = created });

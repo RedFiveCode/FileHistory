@@ -19,23 +19,12 @@ namespace FileHistory.Core
 				throw new ArgumentOutOfRangeException(nameof(recentGenerationsToKeep));
 			}
 
-			var keepList = new List<FileHistoryFile>();
-			var deleteList = new List<FileHistoryFile>();
+			// files are ordered by time, keep the newest (first/Skip(1)) and delete the others
+			var files = group.Files.OrderByDescending(x => x.CreationTime);
 
-			// ignore if only one file, cannot have duplicates
-			if (group.Files.Count == 1)
-			{
-				keepList.Add(group.Files.First());
-			}
-			else
-			{
-				// files are ordered by time, keep the newest (first/Skip(1)) and delete the others
-				var files = group.Files.OrderByDescending(x => x.CreationTime);
+			var keepList = files.Take(recentGenerationsToKeep).ToList();
 
-				keepList.AddRange(files.Take(recentGenerationsToKeep));
-
-				deleteList.AddRange(files.Skip(recentGenerationsToKeep));
-			}
+			var deleteList = files.Skip(recentGenerationsToKeep).ToList();
 
 			return new FilesToKeepAndDelete(keepList, deleteList);
 		}
