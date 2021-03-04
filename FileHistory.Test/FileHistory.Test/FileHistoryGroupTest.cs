@@ -44,9 +44,9 @@ namespace FileHistory.Test
             var mockFileSystem = new MockFileSystem();
             var fhList = new List<FileHistoryFile>()
             {
-                CreateFileHistoryFileAndAddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2021_01_01 10_10_00 UTC).ext", "filename", ".ext", "2021_01_01 10_10_00 UTC", new DateTime(2021, 1, 1, 10, 10, 0)),
-                CreateFileHistoryFileAndAddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2021_01_01 10_11_00 UTC).ext", "filename", ".ext", "2021_01_01 10_11_00 UTC", new DateTime(2021, 1, 1, 10, 12, 0)),
-                CreateFileHistoryFileAndAddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2021_01_01 10_12_00 UTC).ext", "filename", ".ext", "2021_01_01 10_12_00 UTC", new DateTime(2021, 1, 1, 10, 12, 0)),
+                CreateFileHistoryFileAndAddToFileSystem(mockFileSystem, @"\\server\somepath\filename", "filename", ".ext", new DateTime(2021, 1, 1)),
+                CreateFileHistoryFileAndAddToFileSystem(mockFileSystem, @"\\server\somepath\filename", "filename", ".ext", new DateTime(2021, 1, 2)),
+                CreateFileHistoryFileAndAddToFileSystem(mockFileSystem, @"\\server\somepath\filename", "filename", ".ext", new DateTime(2021, 1, 3)),
             };
 
             var target = new FileHistoryGroup("filename.ext", fhList);
@@ -130,7 +130,6 @@ namespace FileHistory.Test
             };
 
             var target = new FileHistoryGroup(@"\\server\somepath", fhList);
-
 
             // act
             var result = target.GetFilesToKeepAndDelete(1);
@@ -257,14 +256,6 @@ namespace FileHistory.Test
             Assert.AreEqual(0, result.DeleteList.Count);
         }
 
-
-        private FileHistoryFile CreateFileHistoryFileAndAddToFileSystem(MockFileSystem mockFileSystem, string path, string filename, string extension, string timestamp, DateTime created)
-        {
-            mockFileSystem.AddFile(path, new MockFileData("Test data...") { CreationTime = created });
-
-            return new FileHistoryFile(mockFileSystem, path, filename, extension, timestamp);
-        }
-
         private FileHistoryFile CreateFileHistoryFileAndAddToFileSystem(MockFileSystem mockFileSystem, string path, string filename, string extension, DateTime created)
         {
             var timestamp = $"{created:yyyy_MM_dd HH_mm_ss} UTC";
@@ -274,7 +265,6 @@ namespace FileHistory.Test
 
             return new FileHistoryFile(mockFileSystem, fullPath, filename, extension, timestamp);
         }
-
 
         private List<FileHistoryFile> CreateFileHistoryFileList()
         {
