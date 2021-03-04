@@ -72,7 +72,6 @@
     <Compile Include="FileHistoryGroupTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FileHistoryDiscoveryTest.cs" />
-    <Compile Include="TidyFilterTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
