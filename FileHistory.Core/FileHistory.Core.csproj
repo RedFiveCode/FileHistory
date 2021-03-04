@@ -49,7 +49,6 @@
     <Compile Include="FileHistoryGroup.cs" />
     <Compile Include="FilesToKeepAndDelete.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TidyFilter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -59,6 +60,24 @@ namespace FileHistory.Core
             Extension = Path.GetExtension(fullname);
             Files = new List<FileHistoryFile>(files);
         }
+
+        public FilesToKeepAndDelete GetFilesToKeepAndDelete(int recentGenerationsToKeep)
+        {
+            if (recentGenerationsToKeep < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(recentGenerationsToKeep));
+            }
+
+            // files are ordered by time, keep the newest (first/Skip(1)) and delete the others
+            var files = Files.OrderByDescending(x => x.CreationTime);
+
+            var keepList = files.Take(recentGenerationsToKeep).ToList();
+
+            var deleteList = files.Skip(recentGenerationsToKeep).ToList();
+
+            return new FilesToKeepAndDelete(keepList, deleteList);
+        }
+
     }
 
 }
