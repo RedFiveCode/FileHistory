@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using ByteSizeLib;
 using FileHistory.Core;
 using FileHistory.Utils;
 
@@ -51,8 +52,11 @@ namespace FileHistory.App
 				var groupCount = fileGroups.Count();
 				var fileCount = fileGroups.Sum(g => g.FileCount);
 				var fileSize = fileGroups.Sum(g => g.FileSize);
+				var size = ByteSize.FromBytes(fileSize);
 
-				ColorConsole.Write($"Groups: {groupCount:n0}; Files {fileCount:n0}; Size {fileSize:n0} bytes", ConsoleColor.Cyan);
+				ColorConsole.WriteLine($"Groups: {groupCount:n0}", ConsoleColor.Cyan);
+				ColorConsole.WriteLine($"Files:  {fileCount:n0}", ConsoleColor.Cyan);
+				ColorConsole.WriteLine($"Size:   {size:0.00 MB}", ConsoleColor.Cyan);
 			}
 		}
 	}

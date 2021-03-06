@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using ByteSizeLib;
 using FileHistory.Core;
 using FileHistory.Utils;
 
@@ -37,14 +38,16 @@ namespace FileHistory.App
 
 			if (options.Preview)
             {
-				ColorConsole.WriteLine($"Keep {keepList.Count:n0} file(s); Size {keepList.Sum(f => f.Length):n0} bytes", ConsoleColor.Green);
+				var keepSize = ByteSize.FromBytes(keepList.Sum(f => f.Length));
+				ColorConsole.WriteLine($"Keep {keepList.Count:n0} file(s); Size {keepSize:0.000 MB}", ConsoleColor.Green);
 				foreach (var f in keepList)
                 {
 					ColorConsole.WriteLine($"  Keep   {f.FullPath}", ConsoleColor.Green);
 				}
 
 				Console.WriteLine();
-				ColorConsole.WriteLine($"Delete {deleteList.Count:n0} file(s); Size {deleteList.Sum(f => f.Length):n0} bytes", ConsoleColor.Magenta);
+				var deleteSize = ByteSize.FromBytes(deleteList.Sum(f => f.Length));
+				ColorConsole.WriteLine($"Delete {deleteList.Count:n0} file(s); Size {deleteSize:0.000 MB}", ConsoleColor.Magenta);
 				foreach (var f in deleteList)
 				{
 					ColorConsole.WriteLine($"  Delete {f.FullPath}", ConsoleColor.Magenta);
