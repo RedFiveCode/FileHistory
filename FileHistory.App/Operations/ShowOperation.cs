@@ -24,6 +24,11 @@ namespace FileHistory.App
 
 			var fileGroups = fh.GetFolderGroupDetails(options.Folder, options.RecurseSubFolders, options.WildcardFilter, options.MinimumSize);
 
+			if (options.Hide) // hide files with a single generation
+			{
+				fileGroups = fileGroups.Where(g => g.FileCount >= 2).ToList();
+			}
+
 			if (fileGroups.Count == 0)
 			{
 				ColorConsole.WriteLine($"No matching files in {options.Folder}", ConsoleColor.Red);
