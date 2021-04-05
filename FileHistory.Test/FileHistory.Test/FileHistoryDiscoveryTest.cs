@@ -310,7 +310,11 @@ namespace FileHistory.Test
         [TestMethod]
         public void GetFileDetails_FileWithExtension_Returns_ValidObject()
         {
-            var target = new FileHistoryDiscovery();
+            var mockFileSystem = new MockFileSystem();
+
+            AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2016_07_07 18_56_08 UTC).ext", new DateTime(2016, 7, 7, 18, 56, 8));
+
+            var target = new FileHistoryDiscovery(mockFileSystem);
 
             var result = target.GetFileDetails(@"\\server\somepath\filename (2016_07_07 18_56_08 UTC).ext");
 
@@ -325,7 +329,11 @@ namespace FileHistory.Test
         [TestMethod]
         public void GetFileDetails_FileWithoutExtension_Returns_ValidObject()
         {
-            var target = new FileHistoryDiscovery();
+            var mockFileSystem = new MockFileSystem();
+
+            AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2016_07_07 18_56_08 UTC)", new DateTime(2016, 7, 7, 18, 56, 8));
+
+            var target = new FileHistoryDiscovery(mockFileSystem);
 
             var result = target.GetFileDetails(@"\\server\somepath\filename (2016_07_07 18_56_08 UTC)");
 

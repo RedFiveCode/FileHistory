@@ -8,7 +8,7 @@ using System.Linq;
 namespace FileHistory.Test
 {
     /// <summary>
-    /// Summary description for FileHistoryGroupTest
+    /// Unit tests for the <see cref="FileHistoryGroup"/> class
     /// </summary>
     [TestClass]
     public class FileHistoryGroupTest
@@ -16,7 +16,13 @@ namespace FileHistory.Test
         [TestMethod]
         public void FileHistoryGroup_Ctor_Sets_Properties()
         {
-            var fhList = CreateFileHistoryFileList();
+            var mockFileSystem = new MockFileSystem();
+            var fhList = new List<FileHistoryFile>()
+            {
+                CreateFileHistoryFileAndAddToFileSystem(mockFileSystem, @"\\server\somepath", "filename", ".ext", new DateTime(2021, 1, 1)),
+                CreateFileHistoryFileAndAddToFileSystem(mockFileSystem, @"\\server\somepath", "filename", ".ext", new DateTime(2021, 1, 2)),
+                CreateFileHistoryFileAndAddToFileSystem(mockFileSystem, @"\\server\somepath", "filename", ".ext", new DateTime(2021, 1, 3)),
+            };
 
             var target = new FileHistoryGroup("filename.ext", fhList);
 
@@ -31,7 +37,13 @@ namespace FileHistory.Test
         [TestMethod]
         public void FileCount_Returns_NumberOfFiles()
         {
-            var fhList = CreateFileHistoryFileList();
+            var mockFileSystem = new MockFileSystem();
+            var fhList = new List<FileHistoryFile>()
+            {
+                CreateFileHistoryFileAndAddToFileSystem(mockFileSystem, @"\\server\somepath", "filename", ".ext", new DateTime(2021, 1, 1)),
+                CreateFileHistoryFileAndAddToFileSystem(mockFileSystem, @"\\server\somepath", "filename", ".ext", new DateTime(2021, 1, 2)),
+                CreateFileHistoryFileAndAddToFileSystem(mockFileSystem, @"\\server\somepath", "filename", ".ext", new DateTime(2021, 1, 3)),
+            };
 
             var target = new FileHistoryGroup("filename.ext", fhList);
 
@@ -263,19 +275,7 @@ namespace FileHistory.Test
 
             mockFileSystem.AddFile(fullPath, new MockFileData("Test data...") { CreationTime = created });
 
-            return new FileHistoryFile(mockFileSystem, fullPath, filename, extension, timestamp);
-        }
-
-        private List<FileHistoryFile> CreateFileHistoryFileList()
-        {
-            var list = new List<FileHistoryFile>()
-            {
-                new FileHistoryFile(@"\\server\somepath\filename (2021_01_01 10_10_00 UTC).ext", "filename", ".ext", "2021_01_01 10_10_00 UTC"),
-                new FileHistoryFile(@"\\server\somepath\filename (2021_01_01 10_11_00 UTC).ext", "filename", ".ext", "2021_01_01 10_11_00 UTC"),
-                new FileHistoryFile(@"\\server\somepath\filename (2021_01_01 10_12_00 UTC).ext", "filename", ".ext", "2021_01_01 10_12_00 UTC"),
-            };
-
-            return list;
+            return new FileHistoryFile(mockFileSystem, fullPath, filename, extension, timestamp, created);
         }
 
         private void AssertContainsFile(IEnumerable<FileHistoryFile> files, string filename)

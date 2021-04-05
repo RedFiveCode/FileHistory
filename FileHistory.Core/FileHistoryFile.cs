@@ -7,11 +7,6 @@ namespace FileHistory.Core
     [DebuggerDisplay("Name={Name}, Extension={Extension}, Time={Time}, FullPath={FullPath}")]
     public class FileHistoryFile
     {
-        private IFileInfo Info;
-
-        public FileHistoryFile(string path, string name, string extension, string timestamp)
-            : this(new FileSystem(), path, name, extension, timestamp)
-        { }
 
         public FileHistoryFile(IFileSystem fileSystem, string path, string name, string extension, string timestamp)
         {
@@ -19,7 +14,23 @@ namespace FileHistory.Core
             Name = name;
             Extension = extension;
             Time = timestamp;
-            Info = fileSystem.FileInfo.FromFileName(path);
+            var info = fileSystem.FileInfo.FromFileName(path);
+
+            CreationTime = info.CreationTime;
+        }
+
+        public FileHistoryFile(IFileSystem fileSystem, string path, string name, string extension, string timestamp, DateTime created)
+        {
+            FullPath = path;
+            Name = name;
+            Extension = extension;
+            Time = timestamp;
+            CreationTime = created;
+
+            // the file creation timestamp in the filename may differ from the timestamp from the file info object
+            // so only use the file info object to get the file size
+            var info = fileSystem.FileInfo.FromFileName(path);
+            Length = info.Length;
         }
 
         /// <summary>
@@ -61,17 +72,11 @@ namespace FileHistory.Core
         /// <summary>
         /// Gets the size, in bytes, of the current file
         /// </summary>
-        public long Length
-        {
-            get { return Info.Length; }
-        }
+        public long Length { get; private set; }
 
         /// <summary>
         /// Get the creation time of the file
         /// </summary>
-        public DateTime CreationTime
-        {
-            get { return Info.CreationTime; }
-        }
+        public DateTime CreationTime { get; private set; }
     }
 }
