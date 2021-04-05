@@ -11,7 +11,11 @@ namespace FileHistory.Test
         [TestMethod]
         public void RawName_Returns_Concatanted_Values()
         {
-            var target = new FileHistoryFile(@"\\server\somepath\filename (2016_07_07 18_56_08 UTC).ext", "filename", ".ext", "2016_07_07 18_56_08 UTC");
+            var mockFileSystem = new MockFileSystem();
+            var created = new DateTime(2016, 7, 7, 18, 56, 8);
+            AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2016_07_07 18_56_08 UTC).ext", created);
+
+            var target = new FileHistoryFile(mockFileSystem, @"\\server\somepath\filename (2016_07_07 18_56_08 UTC).ext", "filename", ".ext", "2016_07_07 18_56_08 UTC", created);
 
             Assert.AreEqual("filename (2016_07_07 18_56_08 UTC).ext", target.RawName);
         }
@@ -19,7 +23,11 @@ namespace FileHistory.Test
         [TestMethod]
         public void FileName_Returns_Concatenated_Values()
         {
-            var target = new FileHistoryFile(@"\\server\somepath\filename (2016_07_07 18_56_08 UTC).ext", "filename", ".ext", "2016_07_07 18_56_08 UTC");
+            var mockFileSystem = new MockFileSystem();
+            var created = new DateTime(2016, 7, 7, 18, 56, 8);
+            AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2016_07_07 18_56_08 UTC).ext", created);
+
+            var target = new FileHistoryFile(mockFileSystem, @"\\server\somepath\filename (2016_07_07 18_56_08 UTC).ext", "filename", ".ext", "2016_07_07 18_56_08 UTC", created);
 
             Assert.AreEqual("filename.ext", target.FileName);
         }
@@ -27,7 +35,11 @@ namespace FileHistory.Test
         [TestMethod]
         public void FullPath_Returns_Expected_Value()
         {
-            var target = new FileHistoryFile(@"\\server\somepath\filename (2016_07_07 18_56_08 UTC).ext", "filename", ".ext", "2016_07_07 18_56_08 UTC");
+            var mockFileSystem = new MockFileSystem();
+            var created = new DateTime(2016, 7, 7, 18, 56, 8);
+            AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2016_07_07 18_56_08 UTC).ext", created);
+
+            var target = new FileHistoryFile(mockFileSystem, @"\\server\somepath\filename (2016_07_07 18_56_08 UTC).ext", "filename", ".ext", "2016_07_07 18_56_08 UTC", created);
 
             Assert.AreEqual(@"\\server\somepath\filename (2016_07_07 18_56_08 UTC).ext", target.FullPath);
         }
@@ -35,7 +47,11 @@ namespace FileHistory.Test
         [TestMethod]
         public void Name_Returns_Expected_Value()
         {
-            var target = new FileHistoryFile(@"\\server\somepath\filename (2016_07_07 18_56_08 UTC).ext", "filename", ".ext", "2016_07_07 18_56_08 UTC");
+            var mockFileSystem = new MockFileSystem();
+            var created = new DateTime(2016, 7, 7, 18, 56, 8);
+            AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2016_07_07 18_56_08 UTC).ext", created);
+
+            var target = new FileHistoryFile(mockFileSystem, @"\\server\somepath\filename (2016_07_07 18_56_08 UTC).ext", "filename", ".ext", "2016_07_07 18_56_08 UTC", created);
 
             Assert.AreEqual("filename", target.Name);
         }
@@ -43,7 +59,11 @@ namespace FileHistory.Test
         [TestMethod]
         public void Ext_Returns_Expected_Value()
         {
-            var target = new FileHistoryFile(@"\\server\somepath\filename (2016_07_07 18_56_08 UTC).ext", "filename", ".ext", "2016_07_07 18_56_08 UTC");
+            var mockFileSystem = new MockFileSystem();
+            var created = new DateTime(2016, 7, 7, 18, 56, 8);
+            AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2016_07_07 18_56_08 UTC).ext", created);
+
+            var target = new FileHistoryFile(mockFileSystem, @"\\server\somepath\filename (2016_07_07 18_56_08 UTC).ext", "filename", ".ext", "2016_07_07 18_56_08 UTC", created);
 
             Assert.AreEqual(".ext", target.Extension);
         }
@@ -51,7 +71,11 @@ namespace FileHistory.Test
         [TestMethod]
         public void Time_Returns_Expected_Value()
         {
-            var target = new FileHistoryFile(@"\\server\somepath\filename (2016_07_07 18_56_08 UTC).ext", "filename", ".ext", "2016_07_07 18_56_08 UTC");
+            var mockFileSystem = new MockFileSystem();
+            var created = new DateTime(2016, 7, 7, 18, 56, 8);
+            AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2016_07_07 18_56_08 UTC).ext", created);
+
+            var target = new FileHistoryFile(mockFileSystem, @"\\server\somepath\filename (2016_07_07 18_56_08 UTC).ext", "filename", ".ext", "2016_07_07 18_56_08 UTC", created);
 
             Assert.AreEqual("2016_07_07 18_56_08 UTC", target.Time);
         }
@@ -60,13 +84,18 @@ namespace FileHistory.Test
         public void CreationTime_Returns_Expected_Value()
         {
             var mockFileSystem = new MockFileSystem();
-            mockFileSystem.AddFile(@"\\server\somepath\filename (2016_07_07 18_56_08 UTC).ext",
-                                   new MockFileData("Test data...") { CreationTime = new DateTime(2016, 7, 7, 18, 56, 8) });
+            var created = new DateTime(2016, 7, 7, 18, 56, 8);
+            AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2016_07_07 18_56_08 UTC).ext", created);
 
-            var target = new FileHistoryFile(mockFileSystem, @"\\server\somepath\filename (2016_07_07 18_56_08 UTC).ext", "filename", ".ext", "2016_07_07 18_56_08 UTC");
+            var target = new FileHistoryFile(mockFileSystem, @"\\server\somepath\filename (2016_07_07 18_56_08 UTC).ext", "filename", ".ext", "2016_07_07 18_56_08 UTC", created);
 
             var expected = new DateTime(2016, 7, 7, 18, 56, 8);
             Assert.AreEqual(expected, target.CreationTime);
+        }
+
+        private void AddToFileSystem(MockFileSystem mockFileSystem, string path, DateTime created)
+        {
+            mockFileSystem.AddFile(path, new MockFileData("Test data...") { CreationTime = created });
         }
     }
 }
