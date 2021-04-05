@@ -47,7 +47,7 @@ namespace FileHistory.Core
 			if (recurseSubFolders)
 			{
 				// get sub-folders, and get file groups in each sub-folder individually
-				var folders = fileSystem.Directory.EnumerateDirectories(path);
+				var folders = fileSystem.Directory.EnumerateDirectories(path, "*", SearchOption.AllDirectories).ToList();
 
 				// for each folder
 				// get groups of files in that folder
@@ -129,7 +129,10 @@ namespace FileHistory.Core
 												  filename,
 												  match.Groups["name"].Value,
 												  match.Groups["ext"].Value, // will be empty if file has no extension
-												  match.Groups["ts"].Value);
+												  match.Groups["ts"].Value,
+												  ParseTimestamp(match.Groups["ts"].Value));
+
+
 				}
 
 				return details;
@@ -149,6 +152,32 @@ namespace FileHistory.Core
 			var regex = new Regex(@".*\\(?<name>.*?) \((?<ts>\d\d\d\d_\d\d_\d\d \d\d_\d\d_\d\d UTC)\)(?<ext>\..*)?");
 
 			return regex.IsMatch(filename);
+		}
+
+		public DateTime ParseTimestamp(string dt)
+        {
+			var regex = new Regex(@"(?<year>\d\d\d\d)_(?<month>\d\d)_(?<day>\d\d) (?<hour>\d\d)_(?<minute>\d\d)_(?<second>\d\d)");
+
+			if (regex.IsMatch(dt))
+			{
+				var match = regex.Match(dt);
+
+				if (match.Groups.Count == 7)
+				{
+
+					int year = Int32.Parse(match.Groups["year"].Value);
+					int month = Int32.Parse(match.Groups["month"].Value);
+					int day = Int32.Parse(match.Groups["day"].Value);
+
+					int hour = Int32.Parse(match.Groups["hour"].Value);
+					int minute = Int32.Parse(match.Groups["minute"].Value);
+					int second = Int32.Parse(match.Groups["second"].Value);
+
+					return new DateTime(year, month, day, hour, minute, second, DateTimeKind.Utc);
+				}
+			}
+
+			return DateTime.MinValue;
 		}
 	}
 }
