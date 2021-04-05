@@ -39,18 +39,30 @@ namespace FileHistory.App
 			if (options.Preview)
             {
 				var keepSize = ByteSize.FromBytes(keepList.Sum(f => f.Length));
-				ColorConsole.WriteLine($"Keep {keepList.Count:n0} file(s); Size {keepSize:0.000 MB}", ConsoleColor.Green);
-				foreach (var f in keepList)
-                {
-					ColorConsole.WriteLine($"  Keep   {f.FullPath}", ConsoleColor.Green);
+				var keepOldest = keepList.OrderBy(f => f.CreationTime).First();
+				var keepNewest = keepList.OrderBy(f => f.CreationTime).Last();
+				ColorConsole.WriteLine($"Keep {keepList.Count:n0} file(s); Size {keepSize:0.000 MB}; Newest {keepNewest.CreationTime:yyyy-MMM-dd HH:mm:ss}; Oldest {keepOldest.CreationTime:yyyy-MMM-dd HH:mm:ss}", ConsoleColor.Green);
+
+				if (options.Verbose)
+				{
+					foreach (var f in keepList)
+					{
+						ColorConsole.WriteLine($"  Keep   {f.FullPath}", ConsoleColor.Green);
+					}
 				}
 
 				Console.WriteLine();
 				var deleteSize = ByteSize.FromBytes(deleteList.Sum(f => f.Length));
-				ColorConsole.WriteLine($"Delete {deleteList.Count:n0} file(s); Size {deleteSize:0.000 MB}", ConsoleColor.Magenta);
-				foreach (var f in deleteList)
+				var deleteOldest = deleteList.OrderBy(f => f.CreationTime).First();
+				var deleteNewest = deleteList.OrderBy(f => f.CreationTime).Last();
+				ColorConsole.WriteLine($"Delete {deleteList.Count:n0} file(s); Size {deleteSize:0.000 MB}; Newest {deleteNewest.CreationTime:yyyy-MMM-dd HH:mm:ss}; Oldest {deleteOldest.CreationTime:yyyy-MMM-dd HH:mm:ss}", ConsoleColor.Magenta);
+
+				if (options.Verbose)
 				{
-					ColorConsole.WriteLine($"  Delete {f.FullPath}", ConsoleColor.Magenta);
+					foreach (var f in deleteList)
+					{
+						ColorConsole.WriteLine($"  Delete {f.FullPath}", ConsoleColor.Magenta);
+					}
 				}
 			}
             else
