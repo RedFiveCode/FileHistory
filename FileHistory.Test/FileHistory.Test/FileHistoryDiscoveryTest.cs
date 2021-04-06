@@ -3,7 +3,6 @@ using System;
 using System.Linq;
 using FileHistory.Core;
 using System.IO.Abstractions.TestingHelpers;
-using System.Collections.Generic;
 
 namespace FileHistory.Test
 {
