@@ -33,8 +33,8 @@ namespace FileHistory.Core
 		/// Get file history group objects for the specified folder with options.
 		/// </summary>
 		/// <param name="path">Folder path</param>
-		/// <param name="recurseSubFolders">True to recuse sub-folders</param>
-		/// <param name="wildcardFilter">Optional wildcars; defaults to *.*</param>
+		/// <param name="recurseSubFolders">True to recurse sub-folders</param>
+		/// <param name="wildcardFilter">Optional wild-card; defaults to *.*</param>
 		/// <param name="minimumFileSize">Optional minimum file size; defaults to zero meaning all file sizes</param>
 		/// <returns></returns>
 		public List<FileHistoryGroup> GetFolderGroupDetails(string path, bool recurseSubFolders, string wildcardFilter, long minimumFileSize)
