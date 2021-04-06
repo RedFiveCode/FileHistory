@@ -13,7 +13,7 @@ namespace FileHistory.Test
         {
             var mockFileSystem = new MockFileSystem();
             var created = new DateTime(2016, 7, 7, 18, 56, 8);
-            AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2016_07_07 18_56_08 UTC).ext", created);
+            MockFileSystemHelper.AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2016_07_07 18_56_08 UTC).ext", created);
 
             var target = new FileHistoryFile(mockFileSystem, @"\\server\somepath\filename (2016_07_07 18_56_08 UTC).ext", "filename", ".ext", "2016_07_07 18_56_08 UTC", created);
 
@@ -25,7 +25,7 @@ namespace FileHistory.Test
         {
             var mockFileSystem = new MockFileSystem();
             var created = new DateTime(2016, 7, 7, 18, 56, 8);
-            AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2016_07_07 18_56_08 UTC).ext", created);
+            MockFileSystemHelper.AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2016_07_07 18_56_08 UTC).ext", created);
 
             var target = new FileHistoryFile(mockFileSystem, @"\\server\somepath\filename (2016_07_07 18_56_08 UTC).ext", "filename", ".ext", "2016_07_07 18_56_08 UTC", created);
 
@@ -37,7 +37,7 @@ namespace FileHistory.Test
         {
             var mockFileSystem = new MockFileSystem();
             var created = new DateTime(2016, 7, 7, 18, 56, 8);
-            AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2016_07_07 18_56_08 UTC).ext", created);
+            MockFileSystemHelper.AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2016_07_07 18_56_08 UTC).ext", created);
 
             var target = new FileHistoryFile(mockFileSystem, @"\\server\somepath\filename (2016_07_07 18_56_08 UTC).ext", "filename", ".ext", "2016_07_07 18_56_08 UTC", created);
 
@@ -49,7 +49,7 @@ namespace FileHistory.Test
         {
             var mockFileSystem = new MockFileSystem();
             var created = new DateTime(2016, 7, 7, 18, 56, 8);
-            AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2016_07_07 18_56_08 UTC).ext", created);
+            MockFileSystemHelper.AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2016_07_07 18_56_08 UTC).ext", created);
 
             var target = new FileHistoryFile(mockFileSystem, @"\\server\somepath\filename (2016_07_07 18_56_08 UTC).ext", "filename", ".ext", "2016_07_07 18_56_08 UTC", created);
 
@@ -61,7 +61,7 @@ namespace FileHistory.Test
         {
             var mockFileSystem = new MockFileSystem();
             var created = new DateTime(2016, 7, 7, 18, 56, 8);
-            AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2016_07_07 18_56_08 UTC).ext", created);
+            MockFileSystemHelper.AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2016_07_07 18_56_08 UTC).ext", created);
 
             var target = new FileHistoryFile(mockFileSystem, @"\\server\somepath\filename (2016_07_07 18_56_08 UTC).ext", "filename", ".ext", "2016_07_07 18_56_08 UTC", created);
 
@@ -73,7 +73,7 @@ namespace FileHistory.Test
         {
             var mockFileSystem = new MockFileSystem();
             var created = new DateTime(2016, 7, 7, 18, 56, 8);
-            AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2016_07_07 18_56_08 UTC).ext", created);
+            MockFileSystemHelper.AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2016_07_07 18_56_08 UTC).ext", created);
 
             var target = new FileHistoryFile(mockFileSystem, @"\\server\somepath\filename (2016_07_07 18_56_08 UTC).ext", "filename", ".ext", "2016_07_07 18_56_08 UTC", created);
 
@@ -85,17 +85,12 @@ namespace FileHistory.Test
         {
             var mockFileSystem = new MockFileSystem();
             var created = new DateTime(2016, 7, 7, 18, 56, 8);
-            AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2016_07_07 18_56_08 UTC).ext", created);
+            MockFileSystemHelper.AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2016_07_07 18_56_08 UTC).ext", created);
 
             var target = new FileHistoryFile(mockFileSystem, @"\\server\somepath\filename (2016_07_07 18_56_08 UTC).ext", "filename", ".ext", "2016_07_07 18_56_08 UTC", created);
 
             var expected = new DateTime(2016, 7, 7, 18, 56, 8);
             Assert.AreEqual(expected, target.CreationTime);
-        }
-
-        private void AddToFileSystem(MockFileSystem mockFileSystem, string path, DateTime created)
-        {
-            mockFileSystem.AddFile(path, new MockFileData("Test data...") { CreationTime = created });
         }
     }
 }
