@@ -60,9 +60,9 @@ namespace FileHistory.Test
         public void GetFolderGroupDetails_OneGroup_Returns_ListOfFiles()
         {
             var mockFileSystem = new MockFileSystem();
-            AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2021_01_01 10_10_00 UTC).ext", new DateTime(2021, 1, 1, 10, 10, 0));
-            AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2021_01_01 10_11_00 UTC).ext", new DateTime(2021, 1, 1, 10, 12, 0));
-            AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2021_01_01 10_12_00 UTC).ext", new DateTime(2021, 1, 1, 10, 12, 0));
+            MockFileSystemHelper.AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2021_01_01 10_10_00 UTC).ext", new DateTime(2021, 1, 1, 10, 10, 0));
+            MockFileSystemHelper.AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2021_01_01 10_11_00 UTC).ext", new DateTime(2021, 1, 1, 10, 12, 0));
+            MockFileSystemHelper.AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2021_01_01 10_12_00 UTC).ext", new DateTime(2021, 1, 1, 10, 12, 0));
 
             var target = new FileHistoryDiscovery(mockFileSystem);
 
@@ -70,19 +70,19 @@ namespace FileHistory.Test
 
             Assert.IsNotNull(results);
             Assert.AreEqual(1, results.Count);
-            AssertGroup(results.First(), "filename.ext", 3);
+            AssertGroup(results.First(), @"\\server\somepath", "filename.ext", 3);
         }
 
         [TestMethod]
         public void GetFolderGroupDetails_TwoGroups_Returns_ListOfFiles()
         {
             var mockFileSystem = new MockFileSystem();
-            AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2021_01_01 10_10_00 UTC).ext", new DateTime(2021, 1, 1, 10, 10, 0));
-            AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2021_01_01 10_11_00 UTC).ext", new DateTime(2021, 1, 1, 10, 12, 0));
-            AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2021_01_01 10_12_00 UTC).ext", new DateTime(2021, 1, 1, 10, 12, 0));
+            MockFileSystemHelper.AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2021_01_01 10_10_00 UTC).ext", new DateTime(2021, 1, 1, 10, 10, 0));
+            MockFileSystemHelper.AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2021_01_01 10_11_00 UTC).ext", new DateTime(2021, 1, 1, 10, 12, 0));
+            MockFileSystemHelper.AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2021_01_01 10_12_00 UTC).ext", new DateTime(2021, 1, 1, 10, 12, 0));
 
-            AddToFileSystem(mockFileSystem, @"\\server\somepath\another filename (2021_01_01 13_13_13 UTC).extension", new DateTime(2021, 1, 1, 13, 13, 13));
-            AddToFileSystem(mockFileSystem, @"\\server\somepath\another filename (2021_01_01 14_14_14 UTC).extension", new DateTime(2021, 1, 1, 14, 14, 14));
+            MockFileSystemHelper.AddToFileSystem(mockFileSystem, @"\\server\somepath\another filename (2021_01_01 13_13_13 UTC).extension", new DateTime(2021, 1, 1, 13, 13, 13));
+            MockFileSystemHelper.AddToFileSystem(mockFileSystem, @"\\server\somepath\another filename (2021_01_01 14_14_14 UTC).extension", new DateTime(2021, 1, 1, 14, 14, 14));
 
             var target = new FileHistoryDiscovery(mockFileSystem);
 
@@ -91,20 +91,20 @@ namespace FileHistory.Test
             Assert.IsNotNull(results);
             Assert.AreEqual(2, results.Count);
 
-            AssertGroup(results[0], "another filename.extension", 2);
-            AssertGroup(results[1], "filename.ext", 3);
+            AssertGroup(results[0], @"\\server\somepath", "another filename.extension", 2);
+            AssertGroup(results[1], @"\\server\somepath", "filename.ext", 3);
         }
 
         [TestMethod]
         public void GetFolderGroupDetails_Wildcard_Returns_ListOfFiles()
         {
             var mockFileSystem = new MockFileSystem();
-            AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2021_01_01 10_10_00 UTC).ext", new DateTime(2021, 1, 1, 10, 10, 0));
-            AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2021_01_01 10_11_00 UTC).ext", new DateTime(2021, 1, 1, 10, 12, 0));
-            AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2021_01_01 10_12_00 UTC).ext", new DateTime(2021, 1, 1, 10, 12, 0));
+            MockFileSystemHelper.AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2021_01_01 10_10_00 UTC).ext", new DateTime(2021, 1, 1, 10, 10, 0));
+            MockFileSystemHelper.AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2021_01_01 10_11_00 UTC).ext", new DateTime(2021, 1, 1, 10, 12, 0));
+            MockFileSystemHelper.AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2021_01_01 10_12_00 UTC).ext", new DateTime(2021, 1, 1, 10, 12, 0));
 
-            AddToFileSystem(mockFileSystem, @"\\server\somepath\another filename (2021_01_01 13_13_13 UTC).extension", new DateTime(2021, 1, 1, 13, 13, 13));
-            AddToFileSystem(mockFileSystem, @"\\server\somepath\another filename (2021_01_01 14_14_14 UTC).extension", new DateTime(2021, 1, 1, 14, 14, 14));
+            MockFileSystemHelper.AddToFileSystem(mockFileSystem, @"\\server\somepath\another filename (2021_01_01 13_13_13 UTC).extension", new DateTime(2021, 1, 1, 13, 13, 13));
+            MockFileSystemHelper.AddToFileSystem(mockFileSystem, @"\\server\somepath\another filename (2021_01_01 14_14_14 UTC).extension", new DateTime(2021, 1, 1, 14, 14, 14));
 
             var target = new FileHistoryDiscovery(mockFileSystem);
 
@@ -113,19 +113,19 @@ namespace FileHistory.Test
             Assert.IsNotNull(results);
             Assert.AreEqual(1, results.Count);
 
-            AssertGroup(results[0], "another filename.extension", 2);
+            AssertGroup(results[0], @"\\server\somepath", "another filename.extension", 2);
         }
 
         [TestMethod]
         public void GetFolderGroupDetails_WildcardNoMatch_Returns_EmptyListOfFiles()
         {
             var mockFileSystem = new MockFileSystem();
-            AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2021_01_01 10_10_00 UTC).ext", new DateTime(2021, 1, 1, 10, 10, 0));
-            AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2021_01_01 10_11_00 UTC).ext", new DateTime(2021, 1, 1, 10, 12, 0));
-            AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2021_01_01 10_12_00 UTC).ext", new DateTime(2021, 1, 1, 10, 12, 0));
+            MockFileSystemHelper.AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2021_01_01 10_10_00 UTC).ext", new DateTime(2021, 1, 1, 10, 10, 0));
+            MockFileSystemHelper.AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2021_01_01 10_11_00 UTC).ext", new DateTime(2021, 1, 1, 10, 12, 0));
+            MockFileSystemHelper.AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2021_01_01 10_12_00 UTC).ext", new DateTime(2021, 1, 1, 10, 12, 0));
 
-            AddToFileSystem(mockFileSystem, @"\\server\somepath\another filename (2021_01_01 13_13_13 UTC).extension", new DateTime(2021, 1, 1, 13, 13, 13));
-            AddToFileSystem(mockFileSystem, @"\\server\somepath\another filename (2021_01_01 14_14_14 UTC).extension", new DateTime(2021, 1, 1, 14, 14, 14));
+            MockFileSystemHelper.AddToFileSystem(mockFileSystem, @"\\server\somepath\another filename (2021_01_01 13_13_13 UTC).extension", new DateTime(2021, 1, 1, 13, 13, 13));
+            MockFileSystemHelper.AddToFileSystem(mockFileSystem, @"\\server\somepath\another filename (2021_01_01 14_14_14 UTC).extension", new DateTime(2021, 1, 1, 14, 14, 14));
 
             var target = new FileHistoryDiscovery(mockFileSystem);
 
@@ -140,12 +140,12 @@ namespace FileHistory.Test
         {
             // arrange
             var mockFileSystem = new MockFileSystem();
-            AddToFileSystem(mockFileSystem, @"\\server\somepath\FolderOne\filename (2021_01_01 10_10_00 UTC).ext", new DateTime(2021, 1, 1, 10, 10, 0));
-            AddToFileSystem(mockFileSystem, @"\\server\somepath\FolderOne\filename (2021_01_01 10_11_00 UTC).ext", new DateTime(2021, 1, 1, 10, 12, 0));
-            AddToFileSystem(mockFileSystem, @"\\server\somepath\FolderOne\filename (2021_01_01 10_12_00 UTC).ext", new DateTime(2021, 1, 1, 10, 12, 0));
+            MockFileSystemHelper.AddToFileSystem(mockFileSystem, @"\\server\somepath\FolderOne\filename (2021_01_01 10_10_00 UTC).ext", new DateTime(2021, 1, 1, 10, 10, 0));
+            MockFileSystemHelper.AddToFileSystem(mockFileSystem, @"\\server\somepath\FolderOne\filename (2021_01_01 10_11_00 UTC).ext", new DateTime(2021, 1, 1, 10, 12, 0));
+            MockFileSystemHelper.AddToFileSystem(mockFileSystem, @"\\server\somepath\FolderOne\filename (2021_01_01 10_12_00 UTC).ext", new DateTime(2021, 1, 1, 10, 12, 0));
 
-            AddToFileSystem(mockFileSystem, @"\\server\somepath\FolderTwo\another filename (2021_01_01 13_13_13 UTC).extension", new DateTime(2021, 1, 1, 13, 13, 13));
-            AddToFileSystem(mockFileSystem, @"\\server\somepath\FolderTwo\another filename (2021_01_01 14_14_14 UTC).extension", new DateTime(2021, 1, 1, 14, 14, 14));
+            MockFileSystemHelper.AddToFileSystem(mockFileSystem, @"\\server\somepath\FolderTwo\another filename (2021_01_01 13_13_13 UTC).extension", new DateTime(2021, 1, 1, 13, 13, 13));
+            MockFileSystemHelper.AddToFileSystem(mockFileSystem, @"\\server\somepath\FolderTwo\another filename (2021_01_01 14_14_14 UTC).extension", new DateTime(2021, 1, 1, 14, 14, 14));
 
             var target = new FileHistoryDiscovery(mockFileSystem);
 
@@ -171,12 +171,12 @@ namespace FileHistory.Test
         {
             // arrange
             var mockFileSystem = new MockFileSystem();
-            AddToFileSystem(mockFileSystem, @"\\server\somepath\FolderOne\filename (2021_01_01 10_10_00 UTC).ext", new DateTime(2021, 1, 1, 10, 10, 0));
-            AddToFileSystem(mockFileSystem, @"\\server\somepath\FolderOne\filename (2021_01_01 10_11_00 UTC).ext", new DateTime(2021, 1, 1, 10, 12, 0));
-            AddToFileSystem(mockFileSystem, @"\\server\somepath\FolderOne\filename (2021_01_01 10_12_00 UTC).ext", new DateTime(2021, 1, 1, 10, 12, 0));
+            MockFileSystemHelper.AddToFileSystem(mockFileSystem, @"\\server\somepath\FolderOne\filename (2021_01_01 10_10_00 UTC).ext", new DateTime(2021, 1, 1, 10, 10, 0));
+            MockFileSystemHelper.AddToFileSystem(mockFileSystem, @"\\server\somepath\FolderOne\filename (2021_01_01 10_11_00 UTC).ext", new DateTime(2021, 1, 1, 10, 12, 0));
+            MockFileSystemHelper.AddToFileSystem(mockFileSystem, @"\\server\somepath\FolderOne\filename (2021_01_01 10_12_00 UTC).ext", new DateTime(2021, 1, 1, 10, 12, 0));
 
-            AddToFileSystem(mockFileSystem, @"\\server\somepath\FolderTwo\filename (2021_02_02 20_13_13 UTC).ext", new DateTime(2021, 2, 2, 20, 13, 13));
-            AddToFileSystem(mockFileSystem, @"\\server\somepath\FolderTwo\filename (2021_02_02 21_14_14 UTC).ext", new DateTime(2021, 2, 2, 21, 14, 14));
+            MockFileSystemHelper.AddToFileSystem(mockFileSystem, @"\\server\somepath\FolderTwo\filename (2021_02_02 20_13_13 UTC).ext", new DateTime(2021, 2, 2, 20, 13, 13));
+            MockFileSystemHelper.AddToFileSystem(mockFileSystem, @"\\server\somepath\FolderTwo\filename (2021_02_02 21_14_14 UTC).ext", new DateTime(2021, 2, 2, 21, 14, 14));
 
             var target = new FileHistoryDiscovery(mockFileSystem);
 
@@ -202,12 +202,12 @@ namespace FileHistory.Test
         {
             // arrange
             var mockFileSystem = new MockFileSystem();
-            AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2021_01_01 10_10_00 UTC).ext", new DateTime(2021, 1, 1, 10, 10, 0));
-            AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2021_01_01 10_11_00 UTC).ext", new DateTime(2021, 1, 1, 10, 12, 0));
-            AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2021_01_01 10_12_00 UTC).ext", new DateTime(2021, 1, 1, 10, 12, 0));
+            MockFileSystemHelper.AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2021_01_01 10_10_00 UTC).ext", new DateTime(2021, 1, 1, 10, 10, 0));
+            MockFileSystemHelper.AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2021_01_01 10_11_00 UTC).ext", new DateTime(2021, 1, 1, 10, 12, 0));
+            MockFileSystemHelper.AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2021_01_01 10_12_00 UTC).ext", new DateTime(2021, 1, 1, 10, 12, 0));
 
-            AddToFileSystem(mockFileSystem, @"\\server\somepath\another filename (2021_01_01 13_13_13 UTC).extension", new DateTime(2021, 1, 1, 13, 13, 13), 1000);
-            AddToFileSystem(mockFileSystem, @"\\server\somepath\another filename (2021_01_01 14_14_14 UTC).extension", new DateTime(2021, 1, 1, 14, 14, 14), 1000);
+            MockFileSystemHelper.AddToFileSystem(mockFileSystem, @"\\server\somepath\another filename (2021_01_01 13_13_13 UTC).extension", new DateTime(2021, 1, 1, 13, 13, 13), 1000);
+            MockFileSystemHelper.AddToFileSystem(mockFileSystem, @"\\server\somepath\another filename (2021_01_01 14_14_14 UTC).extension", new DateTime(2021, 1, 1, 14, 14, 14), 1000);
 
             var target = new FileHistoryDiscovery(mockFileSystem);
 
@@ -226,12 +226,12 @@ namespace FileHistory.Test
         {
             // arrange
             var mockFileSystem = new MockFileSystem();
-            AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2021_01_01 10_10_00 UTC).ext", new DateTime(2021, 1, 1, 10, 10, 0));
-            AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2021_01_01 10_11_00 UTC).ext", new DateTime(2021, 1, 1, 10, 12, 0));
-            AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2021_01_01 10_12_00 UTC).ext", new DateTime(2021, 1, 1, 10, 12, 0));
+            MockFileSystemHelper.AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2021_01_01 10_10_00 UTC).ext", new DateTime(2021, 1, 1, 10, 10, 0));
+            MockFileSystemHelper.AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2021_01_01 10_11_00 UTC).ext", new DateTime(2021, 1, 1, 10, 12, 0));
+            MockFileSystemHelper.AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2021_01_01 10_12_00 UTC).ext", new DateTime(2021, 1, 1, 10, 12, 0));
 
-            AddToFileSystem(mockFileSystem, @"\\server\somepath\another filename (2021_01_01 13_13_13 UTC).extension", new DateTime(2021, 1, 1, 13, 13, 13), 1000);
-            AddToFileSystem(mockFileSystem, @"\\server\somepath\another filename (2021_01_01 14_14_14 UTC).extension", new DateTime(2021, 1, 1, 14, 14, 14), 1000);
+            MockFileSystemHelper.AddToFileSystem(mockFileSystem, @"\\server\somepath\another filename (2021_01_01 13_13_13 UTC).extension", new DateTime(2021, 1, 1, 13, 13, 13), 1000);
+            MockFileSystemHelper.AddToFileSystem(mockFileSystem, @"\\server\somepath\another filename (2021_01_01 14_14_14 UTC).extension", new DateTime(2021, 1, 1, 14, 14, 14), 1000);
 
             var target = new FileHistoryDiscovery(mockFileSystem);
 
@@ -248,12 +248,12 @@ namespace FileHistory.Test
         {
             // arrange
             var mockFileSystem = new MockFileSystem();
-            AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2021_01_01 10_10_00 UTC).ext", new DateTime(2021, 1, 1, 10, 10, 0));
-            AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2021_01_01 10_11_00 UTC).ext", new DateTime(2021, 1, 1, 10, 12, 0));
-            AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2021_01_01 10_12_00 UTC).ext", new DateTime(2021, 1, 1, 10, 12, 0));
+            MockFileSystemHelper.AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2021_01_01 10_10_00 UTC).ext", new DateTime(2021, 1, 1, 10, 10, 0));
+            MockFileSystemHelper.AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2021_01_01 10_11_00 UTC).ext", new DateTime(2021, 1, 1, 10, 12, 0));
+            MockFileSystemHelper.AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2021_01_01 10_12_00 UTC).ext", new DateTime(2021, 1, 1, 10, 12, 0));
 
-            AddToFileSystem(mockFileSystem, @"\\server\somepath\another filename (2021_01_01 13_13_13 UTC).extension", new DateTime(2021, 1, 1, 13, 13, 13), 1000);
-            AddToFileSystem(mockFileSystem, @"\\server\somepath\another filename (2021_01_01 14_14_14 UTC).extension", new DateTime(2021, 1, 1, 14, 14, 14), 1000);
+            MockFileSystemHelper.AddToFileSystem(mockFileSystem, @"\\server\somepath\another filename (2021_01_01 13_13_13 UTC).extension", new DateTime(2021, 1, 1, 13, 13, 13), 1000);
+            MockFileSystemHelper.AddToFileSystem(mockFileSystem, @"\\server\somepath\another filename (2021_01_01 14_14_14 UTC).extension", new DateTime(2021, 1, 1, 14, 14, 14), 1000);
 
             var target = new FileHistoryDiscovery(mockFileSystem);
 
@@ -270,11 +270,11 @@ namespace FileHistory.Test
         {
             // arrange
             var mockFileSystem = new MockFileSystem();
-            AddToFileSystem(mockFileSystem, @"\\server\somepath\some random file", new DateTime(2021, 1, 1, 1, 1, 1));
-            AddToFileSystem(mockFileSystem, @"\\server\somepath\another random file.ext", new DateTime(2021, 1, 1, 1, 1, 1));
-            AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2021_01_01 10_10_00 UTC).ext", new DateTime(2021, 1, 1, 10, 10, 0));
-            AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2021_01_01 10_11_00 UTC).ext", new DateTime(2021, 1, 1, 10, 12, 0));
-            AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2021_01_01 10_12_00 UTC).ext", new DateTime(2021, 1, 1, 10, 12, 0));
+            MockFileSystemHelper.AddToFileSystem(mockFileSystem, @"\\server\somepath\some random file", new DateTime(2021, 1, 1, 1, 1, 1));
+            MockFileSystemHelper.AddToFileSystem(mockFileSystem, @"\\server\somepath\another random file.ext", new DateTime(2021, 1, 1, 1, 1, 1));
+            MockFileSystemHelper.AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2021_01_01 10_10_00 UTC).ext", new DateTime(2021, 1, 1, 10, 10, 0));
+            MockFileSystemHelper.AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2021_01_01 10_11_00 UTC).ext", new DateTime(2021, 1, 1, 10, 12, 0));
+            MockFileSystemHelper.AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2021_01_01 10_12_00 UTC).ext", new DateTime(2021, 1, 1, 10, 12, 0));
 
             var target = new FileHistoryDiscovery(mockFileSystem);
 
@@ -284,7 +284,7 @@ namespace FileHistory.Test
             // assert
             Assert.IsNotNull(results);
             Assert.AreEqual(1, results.Count);
-            AssertGroup(results[0], "filename.ext", 3);
+            AssertGroup(results[0], @"\\server\somepath", "filename.ext", 3);
             Assert.IsFalse(results[0].Files.Any(fh => fh.FileName == "some random file"));
             Assert.IsFalse(results[0].Files.Any(fh => fh.FileName == "another random file.ext"));
         }
@@ -312,7 +312,7 @@ namespace FileHistory.Test
         {
             var mockFileSystem = new MockFileSystem();
 
-            AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2016_07_07 18_56_08 UTC).ext", new DateTime(2016, 7, 7, 18, 56, 8));
+            MockFileSystemHelper.AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2016_07_07 18_56_08 UTC).ext", new DateTime(2016, 7, 7, 18, 56, 8));
 
             var target = new FileHistoryDiscovery(mockFileSystem);
 
@@ -331,7 +331,7 @@ namespace FileHistory.Test
         {
             var mockFileSystem = new MockFileSystem();
 
-            AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2016_07_07 18_56_08 UTC)", new DateTime(2016, 7, 7, 18, 56, 8));
+            MockFileSystemHelper.AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2016_07_07 18_56_08 UTC)", new DateTime(2016, 7, 7, 18, 56, 8));
 
             var target = new FileHistoryDiscovery(mockFileSystem);
 
@@ -353,29 +353,6 @@ namespace FileHistory.Test
             var result = target.GetFileDetails(@"\\server\somepath\filename.ext");
 
             Assert.IsNull(result);
-        }
-
-        private void AddToFileSystem(MockFileSystem mockFileSystem, string path, DateTime created)
-        {
-            mockFileSystem.AddFile(path, new MockFileData("Test data...") { CreationTime = created });
-        }
-
-        private void AddToFileSystem(MockFileSystem mockFileSystem, string path, DateTime created, int length)
-        {
-            var data = new string('.', length);
-            mockFileSystem.AddFile(path, new MockFileData(data) { CreationTime = created });
-        }
-
-        private void AssertContainsFile(IEnumerable<FileHistoryGroup> files, string filename)
-        {
-            Assert.IsTrue(files.Any(fhg => fhg.Fullname == filename), $"File '{filename}' not found in file history groups");
-        }
-
-        private void AssertGroup(FileHistoryGroup group, string expectedFilename, int expectedCount)
-        {
-            Assert.IsNotNull(group);
-            Assert.AreEqual(expectedFilename, group.Fullname);
-            Assert.AreEqual(expectedCount, group.FileCount);
         }
 
         private void AssertGroup(FileHistoryGroup group, string expectedFoldername, string expectedFilename, int expectedCount)

@@ -19,9 +19,9 @@ namespace FileHistory.Test
             var mockFileSystem = new MockFileSystem();
             var fhList = new List<FileHistoryFile>()
             {
-                CreateFileHistoryFileAndAddToFileSystem(mockFileSystem, @"\\server\somepath", "filename", ".ext", new DateTime(2021, 1, 1)),
-                CreateFileHistoryFileAndAddToFileSystem(mockFileSystem, @"\\server\somepath", "filename", ".ext", new DateTime(2021, 1, 2)),
-                CreateFileHistoryFileAndAddToFileSystem(mockFileSystem, @"\\server\somepath", "filename", ".ext", new DateTime(2021, 1, 3)),
+                MockFileSystemHelper.CreateFileHistoryFileAndAddToFileSystem(mockFileSystem, @"\\server\somepath", "filename", ".ext", new DateTime(2021, 1, 1)),
+                MockFileSystemHelper.CreateFileHistoryFileAndAddToFileSystem(mockFileSystem, @"\\server\somepath", "filename", ".ext", new DateTime(2021, 1, 2)),
+                MockFileSystemHelper.CreateFileHistoryFileAndAddToFileSystem(mockFileSystem, @"\\server\somepath", "filename", ".ext", new DateTime(2021, 1, 3)),
             };
 
             var target = new FileHistoryGroup("filename.ext", fhList);
@@ -40,9 +40,9 @@ namespace FileHistory.Test
             var mockFileSystem = new MockFileSystem();
             var fhList = new List<FileHistoryFile>()
             {
-                CreateFileHistoryFileAndAddToFileSystem(mockFileSystem, @"\\server\somepath", "filename", ".ext", new DateTime(2021, 1, 1)),
-                CreateFileHistoryFileAndAddToFileSystem(mockFileSystem, @"\\server\somepath", "filename", ".ext", new DateTime(2021, 1, 2)),
-                CreateFileHistoryFileAndAddToFileSystem(mockFileSystem, @"\\server\somepath", "filename", ".ext", new DateTime(2021, 1, 3)),
+                MockFileSystemHelper.CreateFileHistoryFileAndAddToFileSystem(mockFileSystem, @"\\server\somepath", "filename", ".ext", new DateTime(2021, 1, 1)),
+                MockFileSystemHelper.CreateFileHistoryFileAndAddToFileSystem(mockFileSystem, @"\\server\somepath", "filename", ".ext", new DateTime(2021, 1, 2)),
+                MockFileSystemHelper.CreateFileHistoryFileAndAddToFileSystem(mockFileSystem, @"\\server\somepath", "filename", ".ext", new DateTime(2021, 1, 3)),
             };
 
             var target = new FileHistoryGroup("filename.ext", fhList);
@@ -56,9 +56,9 @@ namespace FileHistory.Test
             var mockFileSystem = new MockFileSystem();
             var fhList = new List<FileHistoryFile>()
             {
-                CreateFileHistoryFileAndAddToFileSystem(mockFileSystem, @"\\server\somepath\filename", "filename", ".ext", new DateTime(2021, 1, 1)),
-                CreateFileHistoryFileAndAddToFileSystem(mockFileSystem, @"\\server\somepath\filename", "filename", ".ext", new DateTime(2021, 1, 2)),
-                CreateFileHistoryFileAndAddToFileSystem(mockFileSystem, @"\\server\somepath\filename", "filename", ".ext", new DateTime(2021, 1, 3)),
+                MockFileSystemHelper.CreateFileHistoryFileAndAddToFileSystem(mockFileSystem, @"\\server\somepath\filename", "filename", ".ext", new DateTime(2021, 1, 1)),
+                MockFileSystemHelper.CreateFileHistoryFileAndAddToFileSystem(mockFileSystem, @"\\server\somepath\filename", "filename", ".ext", new DateTime(2021, 1, 2)),
+                MockFileSystemHelper.CreateFileHistoryFileAndAddToFileSystem(mockFileSystem, @"\\server\somepath\filename", "filename", ".ext", new DateTime(2021, 1, 3)),
             };
 
             var target = new FileHistoryGroup("filename.ext", fhList);
@@ -101,9 +101,9 @@ namespace FileHistory.Test
             var mockFileSystem = new MockFileSystem();
             var fhList = new List<FileHistoryFile>()
             {
-                CreateFileHistoryFileAndAddToFileSystem(mockFileSystem, @"\\server\somepath", "filename", ".ext", new DateTime(2021, 1, 1)),
-                CreateFileHistoryFileAndAddToFileSystem(mockFileSystem, @"\\server\somepath", "filename", ".ext", new DateTime(2021, 1, 2)),
-                CreateFileHistoryFileAndAddToFileSystem(mockFileSystem, @"\\server\somepath", "filename", ".ext", new DateTime(2021, 1, 3)),
+                MockFileSystemHelper.CreateFileHistoryFileAndAddToFileSystem(mockFileSystem, @"\\server\somepath", "filename", ".ext", new DateTime(2021, 1, 1)),
+                MockFileSystemHelper.CreateFileHistoryFileAndAddToFileSystem(mockFileSystem, @"\\server\somepath", "filename", ".ext", new DateTime(2021, 1, 2)),
+                MockFileSystemHelper.CreateFileHistoryFileAndAddToFileSystem(mockFileSystem, @"\\server\somepath", "filename", ".ext", new DateTime(2021, 1, 3)),
             };
 
             var target = new FileHistoryGroup(@"\\server\somepath", fhList);
@@ -136,9 +136,9 @@ namespace FileHistory.Test
             var mockFileSystem = new MockFileSystem();
             var fhList = new List<FileHistoryFile>()
             {
-                CreateFileHistoryFileAndAddToFileSystem(mockFileSystem, @"\\server\somepath", "filename", ".ext", new DateTime(2021, 1, 1)),
-                CreateFileHistoryFileAndAddToFileSystem(mockFileSystem, @"\\server\somepath", "filename", ".ext", new DateTime(2021, 1, 2)),
-                CreateFileHistoryFileAndAddToFileSystem(mockFileSystem, @"\\server\somepath", "filename", ".ext", new DateTime(2021, 1, 3)),
+                MockFileSystemHelper.CreateFileHistoryFileAndAddToFileSystem(mockFileSystem, @"\\server\somepath", "filename", ".ext", new DateTime(2021, 1, 1)),
+                MockFileSystemHelper.CreateFileHistoryFileAndAddToFileSystem(mockFileSystem, @"\\server\somepath", "filename", ".ext", new DateTime(2021, 1, 2)),
+                MockFileSystemHelper.CreateFileHistoryFileAndAddToFileSystem(mockFileSystem, @"\\server\somepath", "filename", ".ext", new DateTime(2021, 1, 3)),
             };
 
             var target = new FileHistoryGroup(@"\\server\somepath", fhList);
@@ -162,9 +162,9 @@ namespace FileHistory.Test
             var mockFileSystem = new MockFileSystem();
             var fhList = new List<FileHistoryFile>()
             {
-                CreateFileHistoryFileAndAddToFileSystem(mockFileSystem, @"\\server\somepath", "filename", ".ext", new DateTime(2021, 1, 1)),
-                CreateFileHistoryFileAndAddToFileSystem(mockFileSystem, @"\\server\somepath", "filename", ".ext", new DateTime(2021, 1, 2)),
-                CreateFileHistoryFileAndAddToFileSystem(mockFileSystem, @"\\server\somepath", "filename", ".ext", new DateTime(2021, 1, 3)),
+                MockFileSystemHelper.CreateFileHistoryFileAndAddToFileSystem(mockFileSystem, @"\\server\somepath", "filename", ".ext", new DateTime(2021, 1, 1)),
+                MockFileSystemHelper.CreateFileHistoryFileAndAddToFileSystem(mockFileSystem, @"\\server\somepath", "filename", ".ext", new DateTime(2021, 1, 2)),
+                MockFileSystemHelper.CreateFileHistoryFileAndAddToFileSystem(mockFileSystem, @"\\server\somepath", "filename", ".ext", new DateTime(2021, 1, 3)),
             };
 
             var target = new FileHistoryGroup(@"\\server\somepath", fhList);
@@ -193,10 +193,10 @@ namespace FileHistory.Test
             var mockFileSystem = new MockFileSystem();
             var fhList = new List<FileHistoryFile>()
             {
-                CreateFileHistoryFileAndAddToFileSystem(mockFileSystem, @"\\server\somepath", "filename", ".ext", new DateTime(2021, 1, 1)),
-                CreateFileHistoryFileAndAddToFileSystem(mockFileSystem, @"\\server\somepath", "filename", ".ext", new DateTime(2021, 1, 2)),
-                CreateFileHistoryFileAndAddToFileSystem(mockFileSystem, @"\\server\somepath", "filename", ".ext", new DateTime(2021, 1, 3)),
-                CreateFileHistoryFileAndAddToFileSystem(mockFileSystem, @"\\server\somepath", "filename", ".ext", new DateTime(2021, 1, 4)),
+                MockFileSystemHelper.CreateFileHistoryFileAndAddToFileSystem(mockFileSystem, @"\\server\somepath", "filename", ".ext", new DateTime(2021, 1, 1)),
+                MockFileSystemHelper.CreateFileHistoryFileAndAddToFileSystem(mockFileSystem, @"\\server\somepath", "filename", ".ext", new DateTime(2021, 1, 2)),
+                MockFileSystemHelper.CreateFileHistoryFileAndAddToFileSystem(mockFileSystem, @"\\server\somepath", "filename", ".ext", new DateTime(2021, 1, 3)),
+                MockFileSystemHelper.CreateFileHistoryFileAndAddToFileSystem(mockFileSystem, @"\\server\somepath", "filename", ".ext", new DateTime(2021, 1, 4)),
             };
 
             var target = new FileHistoryGroup(@"\\server\somepath", fhList);
@@ -221,10 +221,10 @@ namespace FileHistory.Test
             var mockFileSystem = new MockFileSystem();
             var fhList = new List<FileHistoryFile>()
             {
-                CreateFileHistoryFileAndAddToFileSystem(mockFileSystem, @"\\server\somepath", "filename", ".ext", new DateTime(2021, 1, 1)),
-                CreateFileHistoryFileAndAddToFileSystem(mockFileSystem, @"\\server\somepath", "filename", ".ext", new DateTime(2021, 1, 2)),
-                CreateFileHistoryFileAndAddToFileSystem(mockFileSystem, @"\\server\somepath", "filename", ".ext", new DateTime(2021, 1, 3)),
-                CreateFileHistoryFileAndAddToFileSystem(mockFileSystem, @"\\server\somepath", "filename", ".ext", new DateTime(2021, 1, 4))
+                MockFileSystemHelper.CreateFileHistoryFileAndAddToFileSystem(mockFileSystem, @"\\server\somepath", "filename", ".ext", new DateTime(2021, 1, 1)),
+                MockFileSystemHelper.CreateFileHistoryFileAndAddToFileSystem(mockFileSystem, @"\\server\somepath", "filename", ".ext", new DateTime(2021, 1, 2)),
+                MockFileSystemHelper.CreateFileHistoryFileAndAddToFileSystem(mockFileSystem, @"\\server\somepath", "filename", ".ext", new DateTime(2021, 1, 3)),
+                MockFileSystemHelper.CreateFileHistoryFileAndAddToFileSystem(mockFileSystem, @"\\server\somepath", "filename", ".ext", new DateTime(2021, 1, 4))
             };
 
 
@@ -251,7 +251,7 @@ namespace FileHistory.Test
             var mockFileSystem = new MockFileSystem();
             var fhList = new List<FileHistoryFile>()
             {
-                CreateFileHistoryFileAndAddToFileSystem(mockFileSystem, @"\\server\somepath", "filename", ".ext", new DateTime(2021, 1, 1)),
+                MockFileSystemHelper.CreateFileHistoryFileAndAddToFileSystem(mockFileSystem, @"\\server\somepath", "filename", ".ext", new DateTime(2021, 1, 1)),
             };
 
 
@@ -266,16 +266,6 @@ namespace FileHistory.Test
 
             // delete list
             Assert.AreEqual(0, result.DeleteList.Count);
-        }
-
-        private FileHistoryFile CreateFileHistoryFileAndAddToFileSystem(MockFileSystem mockFileSystem, string path, string filename, string extension, DateTime created)
-        {
-            var timestamp = $"{created:yyyy_MM_dd HH_mm_ss} UTC";
-            var fullPath = $"{path}\\{filename} ({created:yyyy_MM_dd HH_mm_ss} UTC){extension}";
-
-            mockFileSystem.AddFile(fullPath, new MockFileData("Test data...") { CreationTime = created });
-
-            return new FileHistoryFile(mockFileSystem, fullPath, filename, extension, timestamp, created);
         }
 
         private void AssertContainsFile(IEnumerable<FileHistoryFile> files, string filename)
