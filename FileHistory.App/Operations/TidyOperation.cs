@@ -5,14 +5,30 @@ using System.Linq;
 using ByteSizeLib;
 using FileHistory.Core;
 using FileHistory.Utils;
+using System.IO.Abstractions;
 
 namespace FileHistory.App
 {
     public class TidyOperation
     {
+		private IFileSystem fileSystem;
+
+		public TidyOperation() : this(new FileSystem())
+		{ }
+
+		/// <summary>
+		/// ctor for unit testing
+		/// </summary>
+		/// <param name="fileSystem"></param>
+		public TidyOperation(IFileSystem fileSystem)
+		{
+			this.fileSystem = fileSystem;
+		}
+
+
 		public void TidyFolder(TidyCommandLineOptions options)
 		{
-			if (!Directory.Exists(options.Folder))
+			if (!fileSystem.Directory.Exists(options.Folder))
 			{
 				ColorConsole.WriteLine($"Folder: {options.Folder} does not exist", ConsoleColor.Red);
 
@@ -21,7 +37,7 @@ namespace FileHistory.App
 
 			ColorConsole.WriteLine($"Processing folder: {options.Folder}...", ConsoleColor.Gray);
 
-			var fh = new FileHistoryDiscovery();
+			var fh = new FileHistoryDiscovery(fileSystem);
 
 			var fileGroups = fh.GetFolderGroupDetails(options.Folder, options.RecurseSubFolders, options.WildcardFilter, options.MinimumSize);
 
@@ -67,6 +83,7 @@ namespace FileHistory.App
 			}
             else
 			{
+				// really delete the files
 				foreach (var f in deleteList)
 				{
 					if (options.Verbose)
@@ -74,7 +91,7 @@ namespace FileHistory.App
 						ColorConsole.WriteLine($"  Delete {f.FullPath}...", ConsoleColor.Magenta);
 					}
 
-					//File.Delete(f.Info.FullName);
+					fileSystem.File.Delete(f.FullPath);
 				}
 			}
 		}

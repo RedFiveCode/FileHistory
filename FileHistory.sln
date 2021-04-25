@@ -8,6 +8,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileHistory.Core", "FileHistory.Core\FileHistory.Core.csproj", "{6BD98213-CFB9-44D4-BE21-83134DBCE126}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileHistory.Test", "FileHistory.Test\FileHistory.Test\FileHistory.Test.csproj", "{DBDA4799-3A8F-42D5-B4E3-03256573FC9D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{1A3E4A34-8DED-4DD5-A875-8A3A9450A05B} = {1A3E4A34-8DED-4DD5-A875-8A3A9450A05B}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

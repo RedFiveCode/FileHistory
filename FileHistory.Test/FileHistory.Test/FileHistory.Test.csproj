@@ -68,16 +68,22 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssertMockFileSystem.cs" />
     <Compile Include="FileHistoryFileTest.cs" />
     <Compile Include="FileHistoryGroupTest.cs" />
     <Compile Include="MockFileSystemHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FileHistoryDiscoveryTest.cs" />
+    <Compile Include="TidyOperationTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\FileHistory.App\FileHistory.App.csproj">
+      <Project>{1a3e4a34-8ded-4dd5-a875-8a3a9450a05b}</Project>
+      <Name>FileHistory.App</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\FileHistory.Core\FileHistory.Core.csproj">
       <Project>{6bd98213-cfb9-44d4-be21-83134dbce126}</Project>
       <Name>FileHistory.Core</Name>
