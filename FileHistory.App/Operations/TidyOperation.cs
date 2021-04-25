@@ -54,39 +54,12 @@ namespace FileHistory.App
 
 			if (options.Preview)
             {
-				if (keepList.Any())
-				{
-					var keepSize = ByteSize.FromBytes(keepList.Sum(f => f.Length));
-					var keepOldest = keepList.OrderBy(f => f.CreationTime).First();
-					var keepNewest = keepList.OrderBy(f => f.CreationTime).Last();
-					ColorConsole.WriteLine($"Keep {keepList.Count:n0} file(s); Size {keepSize:0.000 MB}; Newest {keepNewest.CreationTime:yyyy-MMM-dd HH:mm:ss}; Oldest {keepOldest.CreationTime:yyyy-MMM-dd HH:mm:ss}", ConsoleColor.Green);
-
-					if (options.Verbose)
-					{
-						foreach (var f in keepList)
-						{
-							ColorConsole.WriteLine($"  Keep   {f.FullPath}", ConsoleColor.Green);
-						}
-					}
-				}
+				ShowList(keepList, "Keep", ConsoleColor.Green, options.Verbose);
 
 				Console.WriteLine();
 
-				if (deleteList.Any())
-				{
-					var deleteSize = ByteSize.FromBytes(deleteList.Sum(f => f.Length));
-					var deleteOldest = deleteList.OrderBy(f => f.CreationTime).First();
-					var deleteNewest = deleteList.OrderBy(f => f.CreationTime).Last();
-					ColorConsole.WriteLine($"Delete {deleteList.Count:n0} file(s); Size {deleteSize:0.000 MB}; Newest {deleteNewest.CreationTime:yyyy-MMM-dd HH:mm:ss}; Oldest {deleteOldest.CreationTime:yyyy-MMM-dd HH:mm:ss}", ConsoleColor.Magenta);
+				ShowList(deleteList, "Delete", ConsoleColor.Magenta, options.Verbose);
 
-					if (options.Verbose)
-					{
-						foreach (var f in deleteList)
-						{
-							ColorConsole.WriteLine($"  Delete {f.FullPath}", ConsoleColor.Magenta);
-						}
-					}
-				}
 			}
             else
 			{
@@ -127,6 +100,29 @@ namespace FileHistory.App
 			}
 
 			return new Tuple<List<FileHistoryFile>, List<FileHistoryFile>>(keepList, deleteList);
+		}
+
+		private void ShowList(List<FileHistoryFile> list, string caption, ConsoleColor colour, bool verbose)
+        {
+			if (list.Any())
+			{
+				var deleteSize = ByteSize.FromBytes(list.Sum(f => f.Length));
+				var deleteOldest = list.OrderBy(f => f.CreationTime).First();
+				var deleteNewest = list.OrderBy(f => f.CreationTime).Last();
+				ColorConsole.WriteLine($"{caption} {list.Count:n0} file(s); Size {deleteSize:0.000 MB}; Newest {deleteNewest.CreationTime:yyyy-MMM-dd HH:mm:ss}; Oldest {deleteOldest.CreationTime:yyyy-MMM-dd HH:mm:ss}", colour);
+
+				if (verbose)
+				{
+					foreach (var f in list)
+					{
+						ColorConsole.WriteLine($"  {caption} {f.FullPath}", colour);
+					}
+				}
+			}
+			else
+            {
+				ColorConsole.WriteLine($"{caption} No files", colour);
+			}
 		}
 	}
 }
