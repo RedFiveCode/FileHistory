@@ -4,9 +4,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("FileHistory.Test")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("RedFiveCode (https://github.com/RedFiveCode)")]
 [assembly: AssemblyProduct("FileHistory.Test")]
-[assembly: AssemblyCopyright("Copyright ©  2021")]
+[assembly: AssemblyCopyright("Copyright © 2021 RedFiveCode (https://github.com/RedFiveCode)")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

@@ -7,9 +7,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("FileHistory")]
 [assembly: AssemblyDescription("FileHistory viewer")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("JM")]
+[assembly: AssemblyCompany("RedFiveCode (https://github.com/RedFiveCode)")]
 [assembly: AssemblyProduct("FileHistory")]
-[assembly: AssemblyCopyright("Copyright © JM 2021")]
+[assembly: AssemblyCopyright("Copyright © 2021 RedFiveCode (https://github.com/RedFiveCode)")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
