@@ -37,7 +37,9 @@ namespace FileHistory.App
 
 			foreach (var g in fileGroups) //.OrderBy(x => x.RootName))
 			{
-				ColorConsole.WriteLine($"{g.Fullname} ({g.Files.Count} matches) :", ConsoleColor.Yellow);
+				var groupSize = ByteSize.FromBytes(g.Files.Sum(f => f.Length));
+
+                ColorConsole.WriteLine($"{g.Fullname} ({g.Files.Count} matches; Size {groupSize:0.000 GB})", ConsoleColor.Yellow);
 
 				// files are ordered by time, most recent first
 				foreach (var f in g.Files.OrderByDescending(x => x.CreationTime))
