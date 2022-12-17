@@ -14,7 +14,7 @@ namespace FileHistory.Core
             Name = name;
             Extension = extension;
             Time = timestamp;
-            var info = fileSystem.FileInfo.FromFileName(path);
+            var info = fileSystem.FileInfo.New(path);
 
             CreationTime = info.CreationTime;
         }
@@ -29,7 +29,7 @@ namespace FileHistory.Core
 
             // the file creation timestamp in the filename may differ from the timestamp from the file info object
             // so only use the file info object to get the file size
-            var info = fileSystem.FileInfo.FromFileName(path);
+            var info = fileSystem.FileInfo.New(path);
             Length = info.Length;
         }
 
