@@ -19,7 +19,7 @@ The goal was to provide a consolidated view of each archive and so reduce the re
 
 
 ## Technical
-This is a command line application written in C# for the .net framework version 4.7.2.
+This is a command line application written in C# for the .net framework version 4.8.
 
 It uses the following nuget packages/files:
 * [ByteSize](https://github.com/omar/ByteSize)
