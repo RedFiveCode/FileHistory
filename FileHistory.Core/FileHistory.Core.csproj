@@ -17,8 +17,8 @@
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="System.IO.Abstractions" Version="21.0.29" />
-    <PackageReference Include="TestableIO.System.IO.Abstractions" Version="21.0.29" />
-    <PackageReference Include="TestableIO.System.IO.Abstractions.Wrappers" Version="21.0.29" />
+    <PackageReference Include="System.IO.Abstractions" Version="21.2.1" />
+    <PackageReference Include="TestableIO.System.IO.Abstractions" Version="21.2.1" />
+    <PackageReference Include="TestableIO.System.IO.Abstractions.Wrappers" Version="21.2.1" />
   </ItemGroup>
 </Project>
