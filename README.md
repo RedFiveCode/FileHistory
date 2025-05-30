@@ -19,7 +19,7 @@ The goal was to provide a consolidated view of each archive and so reduce the re
 
 
 ## Technical
-This is a command line application written in C# for the .net framework version 4.8.
+This is a command line application written in C# for .net 9.0.
 
 It uses the following nuget packages/files:
 * [ByteSize](https://github.com/omar/ByteSize)
@@ -73,15 +73,15 @@ Tested with Windows 10 Professional version 20H2.
 Includes unit tests.
 
 ## Security considerations
-Enumerates files and folders.
-Display file name, path and timestamp information.
-Deletes files.
+* Enumerates files and folders.
+* Display file name, path and timestamp information.
+* Deletes files.
 
 
 ## Author and License
 RedFiveCode (https://github.com/RedFiveCode)
 
-Copyright (c) 2021-2023 RedFiveCode (https://github.com/RedFiveCode) All rights reserved.
+Copyright (c) 2021-2025 RedFiveCode (https://github.com/RedFiveCode) All rights reserved.
 
 Released under MIT License (see License.txt file).
 
