@@ -63,7 +63,7 @@ namespace FileHistory.App
 
 				ColorConsole.WriteLine($"Groups: {groupCount:n0}", ConsoleColor.Cyan);
 				ColorConsole.WriteLine($"Files:  {fileCount:n0}", ConsoleColor.Cyan);
-				ColorConsole.WriteLine($"Size:   {size:0.00 MB}", ConsoleColor.Cyan);
+				ColorConsole.WriteLine($"Size:   {size:0.000 GB}", ConsoleColor.Cyan);
 			}
 		}
 	}

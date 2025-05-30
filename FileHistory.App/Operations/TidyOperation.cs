@@ -109,7 +109,7 @@ namespace FileHistory.App
 				var deleteSize = ByteSize.FromBytes(list.Sum(f => f.Length));
 				var deleteOldest = list.OrderBy(f => f.CreationTime).First();
 				var deleteNewest = list.OrderBy(f => f.CreationTime).Last();
-				ColorConsole.WriteLine($"{caption} {list.Count:n0} file(s); Size {deleteSize:0.000 MB}; Newest {deleteNewest.CreationTime:yyyy-MMM-dd HH:mm:ss}; Oldest {deleteOldest.CreationTime:yyyy-MMM-dd HH:mm:ss}", colour);
+				ColorConsole.WriteLine($"{caption} {list.Count:n0} file(s); Size {deleteSize:0.000 GB}; Newest {deleteNewest.CreationTime:yyyy-MMM-dd HH:mm:ss}; Oldest {deleteOldest.CreationTime:yyyy-MMM-dd HH:mm:ss}", colour);
 
 				if (verbose)
 				{
