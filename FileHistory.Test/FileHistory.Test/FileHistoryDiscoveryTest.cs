@@ -47,8 +47,8 @@ namespace FileHistory.Test
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void GetFolderGroupDetails_Path_Empty_Throws_ArgumentNullException()
+        [ExpectedException(typeof(ArgumentException))]
+        public void GetFolderGroupDetails_Path_Empty_Throws_ArgumentException()
         {
             var target = new FileHistoryDiscovery();
 
@@ -298,8 +298,8 @@ namespace FileHistory.Test
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void GetFileDetails_Path_Empty_Throws_ArgumentNullException()
+        [ExpectedException(typeof(ArgumentException))]
+        public void GetFileDetails_Path_Empty_Throws_ArgumentException()
         {
             var target = new FileHistoryDiscovery();
 

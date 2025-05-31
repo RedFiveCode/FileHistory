@@ -39,10 +39,7 @@ namespace FileHistory.Core
 		/// <returns></returns>
 		public List<FileHistoryGroup> GetFolderGroupDetails(string path, bool recurseSubFolders, string wildcardFilter, long minimumFileSize)
 		{
-			if (String.IsNullOrEmpty(path))
-			{
-				throw new ArgumentNullException(nameof(path));
-			}
+            ArgumentNullException.ThrowIfNullOrEmpty(path, nameof(path));
 
 			if (recurseSubFolders)
 			{
@@ -109,10 +106,7 @@ namespace FileHistory.Core
 		/// <returns></returns>
 		public FileHistoryFile GetFileDetails(string filename)
 		{
-			if (String.IsNullOrEmpty(filename))
-            {
-				throw new ArgumentNullException(nameof(filename));
-            }
+            ArgumentNullException.ThrowIfNullOrEmpty(filename, nameof(filename));
 
 			// does not match files with no extension
 			var regex = new Regex(@".*\\(?<name>.*?) \((?<ts>\d\d\d\d_\d\d_\d\d \d\d_\d\d_\d\d UTC)\)(?<ext>\..*)?");
