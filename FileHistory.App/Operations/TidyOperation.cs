@@ -11,7 +11,7 @@ namespace FileHistory.App
 {
     public class TidyOperation
     {
-		private IFileSystem fileSystem;
+		private readonly IFileSystem fileSystem;
 
 		public TidyOperation() : this(new FileSystem())
 		{ }

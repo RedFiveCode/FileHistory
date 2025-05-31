@@ -9,7 +9,7 @@ namespace FileHistory.Core
 {
 	public class FileHistoryDiscovery
 	{
-		private IFileSystem fileSystem;
+		private readonly IFileSystem fileSystem;
 
 		public FileHistoryDiscovery() : this(new FileSystem())
 		{ }
