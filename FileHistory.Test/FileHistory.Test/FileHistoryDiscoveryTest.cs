@@ -354,6 +354,52 @@ namespace FileHistory.Test
             Assert.IsNull(result);
         }
 
+        [TestMethod]
+        public void GetFileDetails_Null_ThrowsArgumentNullException()
+        {
+            var target = new FileHistoryDiscovery();
+
+            Assert.ThrowsException<ArgumentNullException>(() => target.GetFileDetails(null));
+        }
+
+        [TestMethod]
+        public void GetFileDetails_Empty_ThrowsArgumentException()
+        {
+            var target = new FileHistoryDiscovery();
+
+            Assert.ThrowsException<ArgumentException>(() => target.GetFileDetails(""));
+        }
+
+        [TestMethod]
+        public void ParseTimestamp_InvalidFormat_ReturnsMinValue()
+        {
+            var target = new FileHistoryDiscovery();
+            var result = target.ParseTimestamp("not_a_timestamp");
+
+            Assert.AreEqual(DateTime.MinValue, result);
+        }
+
+        [TestMethod]
+        public void IsMatchingFile_EmptyString_ReturnsFalse()
+        {
+            var target = new FileHistoryDiscovery();
+
+            Assert.IsFalse(target.IsMatchingFile(""));
+        }
+
+        [TestMethod]
+        public void GetFileDetails_FileWithoutExtension_ReturnsValidObject()
+        {
+            var mockFileSystem = new MockFileSystem();
+            MockFileSystemHelper.AddToFileSystem(mockFileSystem, @"\\server\somepath\filename (2016_07_07 18_56_08 UTC)", new DateTime(2016, 7, 7, 18, 56, 8));
+            var target = new FileHistoryDiscovery(mockFileSystem);
+            
+            var result = target.GetFileDetails(@"\\server\somepath\filename (2016_07_07 18_56_08 UTC)");
+            
+            Assert.IsNotNull(result);
+            Assert.AreEqual(string.Empty, result.Extension);
+        }
+
         private void AssertGroup(FileHistoryGroup group, string expectedFoldername, string expectedFilename, int expectedCount)
         {
             Assert.IsNotNull(group);

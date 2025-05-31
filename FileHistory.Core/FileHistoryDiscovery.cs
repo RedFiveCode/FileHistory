@@ -9,15 +9,23 @@ namespace FileHistory.Core
 {
 	public class FileHistoryDiscovery
 	{
-		private readonly IFileSystem fileSystem;
+        private static readonly Regex FileHistoryRegex = new(
+            @".*\\(?<name>.*?) \((?<ts>\d\d\d\d_\d\d_\d\d \d\d_\d\d_\d\d UTC)\)(?<ext>\..*)?",
+            RegexOptions.Compiled);
+
+        private static readonly Regex TimestampRegex = new(
+            @"(?<year>\d\d\d\d)_(?<month>\d\d)_(?<day>\d\d) (?<hour>\d\d)_(?<minute>\d\d)_(?<second>\d\d)",
+            RegexOptions.Compiled);
+
+        private readonly IFileSystem fileSystem;
 
 		public FileHistoryDiscovery() : this(new FileSystem())
 		{ }
 
 		public FileHistoryDiscovery(IFileSystem fileSystem)
 		{
-			this.fileSystem = fileSystem;
-		}
+            this.fileSystem = fileSystem ?? throw new ArgumentNullException(nameof(fileSystem));
+        }
 
 		/// <summary>
 		/// Get file history group objects for the specified folder
@@ -105,73 +113,43 @@ namespace FileHistory.Core
 		/// <param name="filename"></param>
 		/// <returns></returns>
 		public FileHistoryFile GetFileDetails(string filename)
-		{
-            ArgumentNullException.ThrowIfNullOrEmpty(filename, nameof(filename));
+		{ 
+            ArgumentException.ThrowIfNullOrEmpty(filename);
 
-			// does not match files with no extension
-			var regex = new Regex(@".*\\(?<name>.*?) \((?<ts>\d\d\d\d_\d\d_\d\d \d\d_\d\d_\d\d UTC)\)(?<ext>\..*)?");
-
-			if (regex.IsMatch(filename))
-			{
-				var match = regex.Match(filename);
-
-				FileHistoryFile details = null;
-
-				if (match.Groups.Count == 4) 
-				{
-					details = new FileHistoryFile(fileSystem,
-												  filename,
-												  match.Groups["name"].Value,
-												  match.Groups["ext"].Value, // will be empty if file has no extension
-												  match.Groups["ts"].Value,
-												  ParseTimestamp(match.Groups["ts"].Value));
-
-
-				}
-
-				return details;
-			}
-
-			// no match for files that are not file history records
-			return null;
-		}
+            var match = FileHistoryRegex.Match(filename);
+            if (match.Success)
+            {
+                return new FileHistoryFile(
+                    fileSystem,
+                    filename,
+                    match.Groups["name"].Value,
+                    match.Groups["ext"].Success ? match.Groups["ext"].Value : string.Empty,
+                    match.Groups["ts"].Value,
+                    ParseTimestamp(match.Groups["ts"].Value));
+            }
+            return null;
+        }
 
 		public bool IsMatchingFile(string filename)
-        {
-			if (String.IsNullOrEmpty(filename))
-			{
-				return false;
-			}
-
-			var regex = new Regex(@".*\\(?<name>.*?) \((?<ts>\d\d\d\d_\d\d_\d\d \d\d_\d\d_\d\d UTC)\)(?<ext>\..*)?");
-
-			return regex.IsMatch(filename);
+		{
+			return !String.IsNullOrEmpty(filename) && FileHistoryRegex.IsMatch(filename);
 		}
 
-		public DateTime ParseTimestamp(string dt)
+        public DateTime ParseTimestamp(string dt)
         {
-			var regex = new Regex(@"(?<year>\d\d\d\d)_(?<month>\d\d)_(?<day>\d\d) (?<hour>\d\d)_(?<minute>\d\d)_(?<second>\d\d)");
-
-			if (regex.IsMatch(dt))
-			{
-				var match = regex.Match(dt);
-
-				if (match.Groups.Count == 7)
-				{
-
-					int year = Int32.Parse(match.Groups["year"].Value);
-					int month = Int32.Parse(match.Groups["month"].Value);
-					int day = Int32.Parse(match.Groups["day"].Value);
-
-					int hour = Int32.Parse(match.Groups["hour"].Value);
-					int minute = Int32.Parse(match.Groups["minute"].Value);
-					int second = Int32.Parse(match.Groups["second"].Value);
-
-					return new DateTime(year, month, day, hour, minute, second, DateTimeKind.Utc);
-				}
-			}
-
-			return DateTime.MinValue;
-		}
+            var match = TimestampRegex.Match(dt);
+            if (match.Success)
+            {
+                return new DateTime(
+                    int.Parse(match.Groups["year"].Value),
+                    int.Parse(match.Groups["month"].Value),
+                    int.Parse(match.Groups["day"].Value),
+                    int.Parse(match.Groups["hour"].Value),
+                    int.Parse(match.Groups["minute"].Value),
+                    int.Parse(match.Groups["second"].Value),
+                    DateTimeKind.Utc);
+            }
+            return DateTime.MinValue;
+        }
 	}
 }
