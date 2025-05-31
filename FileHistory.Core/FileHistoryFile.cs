@@ -14,6 +14,12 @@ namespace FileHistory.Core
 
         public FileHistoryFile(IFileSystem fileSystem, string path, string name, string extension, string timestamp, DateTime created)
         {
+            ArgumentNullException.ThrowIfNull(fileSystem);
+            ArgumentException.ThrowIfNullOrEmpty(path);
+            ArgumentException.ThrowIfNullOrEmpty(name);
+            ArgumentNullException.ThrowIfNull(extension);
+            ArgumentException.ThrowIfNullOrEmpty(timestamp);
+
             FullPath = path;
             Name = name;
             Extension = extension;

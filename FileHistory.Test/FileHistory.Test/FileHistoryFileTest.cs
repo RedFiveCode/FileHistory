@@ -92,5 +92,69 @@ namespace FileHistory.Test
             var expected = new DateTime(2016, 7, 7, 18, 56, 8);
             Assert.AreEqual(expected, target.CreationTime);
         }
+
+        [TestMethod]
+        public void Ctor_FileSystemNull_ThrowsArgumentNullException()
+        {
+            var created = DateTime.UtcNow;
+            Assert.ThrowsException<ArgumentNullException>(() => new FileHistoryFile(null, @"path", "name", ".ext", "timestamp", created));
+        }
+
+        [TestMethod]
+        public void Ctor_PathNull_ThrowsArgumentNullException()
+        {
+            var mockFileSystem = new MockFileSystem();
+            var created = DateTime.UtcNow;
+            Assert.ThrowsException<ArgumentNullException>(() => new FileHistoryFile(mockFileSystem, null, "name", ".ext", "timestamp", created));
+        }
+
+        [TestMethod]
+        public void Ctor_PathEmpty_ThrowsArgumentException()
+        {
+            var mockFileSystem = new MockFileSystem();
+            var created = DateTime.UtcNow;
+            Assert.ThrowsException<ArgumentException>(() => new FileHistoryFile(mockFileSystem, "", "name", ".ext", "timestamp", created));
+        }
+
+        [TestMethod]
+        public void Ctor_NameNull_ThrowsArgumentNullException()
+        {
+            var mockFileSystem = new MockFileSystem();
+            var created = DateTime.UtcNow;
+            Assert.ThrowsException<ArgumentNullException>(() => new FileHistoryFile(mockFileSystem, "path", null, ".ext", "timestamp", created));
+        }
+
+        [TestMethod]
+        public void Ctor_NameEmpty_ThrowsArgumentException()
+        {
+            var mockFileSystem = new MockFileSystem();
+            var created = DateTime.UtcNow;
+            Assert.ThrowsException<ArgumentException>(() => new FileHistoryFile(mockFileSystem, "path", "", ".ext", "timestamp", created));
+        }
+
+        [TestMethod]
+        public void Ctor_ExtensionNull_ThrowsArgumentNullException()
+        {
+            var mockFileSystem = new MockFileSystem();
+            var created = DateTime.UtcNow;
+            Assert.ThrowsException<ArgumentNullException>(() => new FileHistoryFile(mockFileSystem, "path", "name", null, "timestamp", created));
+        }
+
+        [TestMethod]
+        public void Ctor_TimestampNull_ThrowsArgumentNullException()
+        {
+            var mockFileSystem = new MockFileSystem();
+            var created = DateTime.UtcNow;
+            Assert.ThrowsException<ArgumentNullException>(() => new FileHistoryFile(mockFileSystem, "path", "name", ".ext", null, created));
+        }
+
+        [TestMethod]
+        public void Ctor_TimestampEmpty_ThrowsArgumentException()
+        {
+            var mockFileSystem = new MockFileSystem();
+            var created = DateTime.UtcNow;
+
+            Assert.ThrowsException<ArgumentException>(() => new FileHistoryFile(mockFileSystem, "path", "name", ".ext", "", created));
+        }
     }
 }
