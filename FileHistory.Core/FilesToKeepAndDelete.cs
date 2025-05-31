@@ -10,8 +10,8 @@ namespace FileHistory.Core
 			DeleteList = deleteList;
         }
 
-		public IList<FileHistoryFile> KeepList { get; private set; }
+		public IList<FileHistoryFile> KeepList { get; init; }
 
-		public IList<FileHistoryFile> DeleteList { get; private set; }
+		public IList<FileHistoryFile> DeleteList { get; init; }
 	}
 }
