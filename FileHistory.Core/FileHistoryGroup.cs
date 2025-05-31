@@ -51,6 +51,9 @@ namespace FileHistory.Core
 
         public FileHistoryGroup(string fullname, IEnumerable<FileHistoryFile> files)
         {
+            ArgumentNullException.ThrowIfNullOrEmpty(fullname, nameof(fullname));
+            ArgumentNullException.ThrowIfNull(files, nameof(files));
+
             if (files.Any())
             {
                 Folder = Path.GetDirectoryName(files.First().FullPath);

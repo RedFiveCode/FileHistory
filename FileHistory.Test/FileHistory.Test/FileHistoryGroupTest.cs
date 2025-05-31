@@ -268,10 +268,31 @@ namespace FileHistory.Test
             Assert.AreEqual(0, result.DeleteList.Count);
         }
 
+        [TestMethod]
+        public void Ctor_FullnameNull_ThrowsArgumentNullException()
+        {
+            var mockFileSystem = new MockFileSystem();
+            var files = new List<FileHistoryFile>();
+            Assert.ThrowsException<ArgumentNullException>(() => new FileHistoryGroup(null, files));
+        }
+
+        [TestMethod]
+        public void Ctor_FullnameEmpty_ThrowsArgumentException()
+        {
+            var mockFileSystem = new MockFileSystem();
+            var files = new List<FileHistoryFile>();
+            Assert.ThrowsException<ArgumentException>(() => new FileHistoryGroup("", files));
+        }
+
+        [TestMethod]
+        public void Ctor_FilesNull_ThrowsArgumentNullException()
+        {
+            Assert.ThrowsException<ArgumentNullException>(() => new FileHistoryGroup("filename.ext", null));
+        }
+
         private void AssertContainsFile(IEnumerable<FileHistoryFile> files, string filename)
         {
             Assert.IsTrue(files.Any(fh => fh.FullPath == filename), $"File '{filename}' not found");
         }
-
     }
 }
