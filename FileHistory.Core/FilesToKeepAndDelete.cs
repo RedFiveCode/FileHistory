@@ -1,17 +1,33 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace FileHistory.Core
 {
     public class FilesToKeepAndDelete
 	{
-		public FilesToKeepAndDelete(List<FileHistoryFile> keepList, List<FileHistoryFile> deleteList)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FilesToKeepAndDelete"/> class.
+        /// </summary>
+        /// <param name="keepList">The list of files to keep.</param>
+        /// <param name="deleteList">The list of files to delete.</param>
+        /// <exception cref="ArgumentNullException">Thrown if either list is null.</exception>
+        public FilesToKeepAndDelete(List<FileHistoryFile> keepList, List<FileHistoryFile> deleteList)
         {
-			KeepList = keepList;
-			DeleteList = deleteList;
+			ArgumentNullException.ThrowIfNull(keepList, nameof(keepList));
+            ArgumentNullException.ThrowIfNull(deleteList, nameof(deleteList));
+
+            KeepList = new List<FileHistoryFile>(keepList);
+			DeleteList = new List<FileHistoryFile>(deleteList);
         }
 
-		public IList<FileHistoryFile> KeepList { get; init; }
+        /// <summary>
+        /// Gets the files to keep.
+        /// </summary>
+        public IList<FileHistoryFile> KeepList { get; init; }
 
+        /// <summary>
+        /// Gets the files to delete.
+        /// </summary>
 		public IList<FileHistoryFile> DeleteList { get; init; }
 	}
 }
